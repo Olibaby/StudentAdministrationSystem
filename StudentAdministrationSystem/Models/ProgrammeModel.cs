@@ -8,15 +8,16 @@ namespace StudentAdministrationSystem.Models
         public string ProgrammeId { get; set; }
         public string ProgrammeTitle { get; set; }
         public string ProgrammeDuration { get; set; }
-        // public DateTime? CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
 
         public ProgrammeModel(Programme programme)
         {
             if (programme == null) return;
-            this.ProgrammeId = programme.ProgrammeId;
-            this.ProgrammeTitle = programme.ProgrammeTitle;
-            this.ProgrammeDuration = programme.ProgrammeDuration;
+            ProgrammeId = programme.ProgrammeId;
+            ProgrammeTitle = programme.ProgrammeTitle;
+            ProgrammeDuration = programme.ProgrammeDuration;
+            CreatedDate = DateTime.Now;
         }
 
         public Programme Create(ProgrammeModel programmeModel)

@@ -78,3 +78,7 @@
 /Users/oliviaezebube/RiderProjects/StudentAdministrationSystem/StudentAdministrationSystem/bin/EntityFramework.xml
 /Users/oliviaezebube/RiderProjects/StudentAdministrationSystem/StudentAdministrationSystem/bin/EntityFramework.SqlServer.xml
 /Users/oliviaezebube/RiderProjects/StudentAdministrationSystem/StudentAdministrationSystem/bin/StudentAdministrationSystem.dll.config
+/Users/oliviaezebube/RiderProjects/StudentAdministrationSystem/StudentAdministrationSystem/bin/Ninject.dll
+/Users/oliviaezebube/RiderProjects/StudentAdministrationSystem/StudentAdministrationSystem/bin/Ninject.Web.Common.dll
+/Users/oliviaezebube/RiderProjects/StudentAdministrationSystem/StudentAdministrationSystem/bin/Ninject.xml
+/Users/oliviaezebube/RiderProjects/StudentAdministrationSystem/StudentAdministrationSystem/bin/Ninject.Web.Common.xml

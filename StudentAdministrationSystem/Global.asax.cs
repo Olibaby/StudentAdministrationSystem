@@ -17,6 +17,7 @@ namespace StudentAdministrationSystem
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             DatabaseConfig.MigrateToLatest();
+            NinjetResolve.NinjectContainer.RegisterAssembly();
         }
     }
 }

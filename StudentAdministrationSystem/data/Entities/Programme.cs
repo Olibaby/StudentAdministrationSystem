@@ -13,8 +13,7 @@ namespace StudentAdministrationSystem.data.Entities
         public string ProgrammeTitle { get; set; }
         
         [Required]
-        public string ProgrammeDuration { get; set; }
-        
+        public string ProgrammeDuration { get; set; } 
         public DateTime? CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
     }

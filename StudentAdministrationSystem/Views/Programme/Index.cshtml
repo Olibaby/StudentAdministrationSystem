@@ -1,0 +1,67 @@
+@model IEnumerable<StudentAdministrationSystem.Models.ProgrammeModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "_Layout";
+}
+
+<html lang="">
+   <head>
+      <meta name = "viewport" content = "width = device-width" />
+      <title>Index</title>
+   </head>
+	
+   <body>
+      <p>@Html.ActionLink("Create New", "Create")</p>
+         <table class = "table">
+         <tr>
+            <th>
+               @* @Html.DisplayNameFor(model => model.ProgrammeId) *@
+               Programme Id
+            </th>
+				
+            <th>
+               @* @Html.DisplayNameFor(model => model.ProgrammeTitle) *@
+               Programme Title
+            </th>
+				
+            <th>
+               @* @Html.DisplayNameFor(model => model.ProgrammeDuration) *@
+               Programme Duration
+            </th>
+				
+            <th>
+               @* @Html.DisplayNameFor(model => model.CreatedDate) *@
+               Date Created
+            </th>
+         </tr>
+			
+         @foreach (var item in Model) {
+            <tr>
+               <td>
+                  @Html.DisplayFor(modelItem => item.ProgrammeId)
+               </td>
+					
+               <td>
+                  @Html.DisplayFor(modelItem => item.ProgrammeTitle)
+               </td>
+					
+               <td>
+                  @Html.DisplayFor(modelItem => item.ProgrammeDuration)
+               </td>
+               
+               <td>
+                  @Html.DisplayFor(modelItem => item.CreatedDate)
+                  </td>
+               <td>
+                  @Html.ActionLink("Edit", "", new { id = item.ProgrammeId }) |
+                  @Html.ActionLink("Details", "", new { id = item.ProgrammeId }) |
+                  @Html.ActionLink("Delete", "", new { id = item.ProgrammeId })
+               </td>
+					
+            </tr>
+         }
+			
+      </table>
+   </body>
+</html>

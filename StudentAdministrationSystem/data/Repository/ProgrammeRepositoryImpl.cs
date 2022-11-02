@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.Remoting.Contexts;
 using StudentAdministrationSystem.data.Entities;
 using StudentAdministrationSystem.data.Repository.Interface;
 
@@ -9,34 +11,51 @@ namespace StudentAdministrationSystem.data.Repository
 {
     public class ProgrammeRepositoryImpl: IProgrammeRepository
     {
+        private DataEntityContext _context;
+
+        public ProgrammeRepositoryImpl()
+        {
+            _context = new DataEntityContext();
+        }
         public IEnumerable<Programme> GetProgrammes()
         {
-            throw new NotImplementedException();
+            return _context.Set<Programme>().ToList();
         }
 
         public Programme GetProgrammeById(string programmeId)
         {
-            throw new NotImplementedException();
+            return _context.Set<Programme>().Find(programmeId);
         }
 
-        public IQueryable<Programme1> Get<Programme1>(params Expression<Func<Programme1, object>>[] includeProperties)
+        public IQueryable<Programme> GetProgramme(params Expression<Func<Programme, object>>[] includeProperties)
         {
-            throw new NotImplementedException();
+            IQueryable<Programme> query = _context.Set<Programme>();
+            foreach( var includeProperty in includeProperties)
+            {
+                query = query.Include(includeProperty);
+            }
+            return query;
         }
 
-        public void Add(Programme programme)
+        public void AddProgramme(Programme programme)
         {
-            throw new NotImplementedException();
+            _context.Set<Programme>().Add(programme);
         }
 
-        public void Update(string id, Programme programme)
+        public void UpdateProgramme(string programmeId, Programme programme)
         {
-            throw new NotImplementedException();
+            if(_context.Entry(programme).State  == EntityState.Detached)
+            {
+                _context.Set<Programme>().Attach(programme);
+            }
+            _context.Entry(programme).State = EntityState.Modified;
+            _context.SaveChanges();
         }
 
-        public void Remove(int id)
+        public void RemoveProgramme(string programmeId)
         {
-            throw new NotImplementedException();
+            var item = GetProgrammeById(programmeId);
+            _context.Set<Programme>().Remove(item);
         }
     }
 }
