@@ -6,11 +6,11 @@ using StudentAdministrationSystem.Service.Interface;
 
 namespace StudentAdministrationSystem.Service
 {
-    public class ProgrammeService: IProgrammeService
+    public class ProgrammeServiceImpl: IProgrammeService
     {
         private IProgrammeRepository _programmeRepository;
 
-        public ProgrammeService(IProgrammeRepository programmeRepository)
+        public ProgrammeServiceImpl(IProgrammeRepository programmeRepository)
         {
             _programmeRepository = programmeRepository;
         }

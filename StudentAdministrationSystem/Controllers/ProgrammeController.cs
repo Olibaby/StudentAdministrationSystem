@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Web.Mvc;
 using StudentAdministrationSystem.Models;
 using StudentAdministrationSystem.Service.Interface;
@@ -21,7 +22,13 @@ namespace StudentAdministrationSystem.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            return View();
+            var vm= new ProgrammeModel();
+            // Hard coded for demo. You can replace with real data from db
+            vm.Durations = new List<SelectListItem> {
+                new SelectListItem { Value="1", Text="One Year" },
+                new SelectListItem { Value ="2", Text="Two Years" }
+            };
+            return View(vm);
         }
         
         [HttpPost]

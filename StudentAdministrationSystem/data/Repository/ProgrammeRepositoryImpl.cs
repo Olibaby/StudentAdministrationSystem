@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.Remoting.Contexts;
@@ -40,6 +41,21 @@ namespace StudentAdministrationSystem.data.Repository
         public void AddProgramme(Programme programme)
         {
             _context.Set<Programme>().Add(programme);
+            // _context.SaveChanges();
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var entityValidationErrors in ex.EntityValidationErrors)
+                {
+                    foreach (var validationError in entityValidationErrors.ValidationErrors)
+                    {
+                        Console.WriteLine("Property: " + validationError.PropertyName + " Error: " + validationError.ErrorMessage);
+                    }
+                }
+            }
         }
 
         public void UpdateProgramme(string programmeId, Programme programme)
@@ -56,6 +72,7 @@ namespace StudentAdministrationSystem.data.Repository
         {
             var item = GetProgrammeById(programmeId);
             _context.Set<Programme>().Remove(item);
+            _context.SaveChanges();
         }
     }
 }
