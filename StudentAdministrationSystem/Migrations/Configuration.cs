@@ -3,7 +3,6 @@ using System;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using StudentAdministrationSystem.data;
 
 namespace StudentAdministrationSystem.Migrations
 {
@@ -11,14 +10,7 @@ namespace StudentAdministrationSystem.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
-            // AutomaticMigrationDataLossAllowed = true;
-        }
-
-        protected override void Seed(DataEntityContext context)
-        {
-            base.Seed(context);
-            SeedData.SeedColleges(context);
+            AutomaticMigrationsEnabled = false;
         }
     } 
 }
