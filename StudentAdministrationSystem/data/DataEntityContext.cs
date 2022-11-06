@@ -10,9 +10,14 @@ namespace StudentAdministrationSystem.data
         {
             // Database.SetInitializer<DataEntityContext>(new CreateDatabaseIfNotExists<DataEntityContext>());
             //Database.SetInitializer<DataEntityContext>(new DropCreateDatabaseIfModelChanges<DataEntityContext>());
+            
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<DataEntityContext, Migrations.Configuration>());
         }
         
         public DbSet<Programme> Programmes { get; set; }
+        public DbSet<Module> Modules { get; set; } 
+        public DbSet<Assessment> Assessments { get; set; } 
+        public DbSet<Student> Students { get; set; } 
+        public DbSet<Grade> Grades { get; set; } 
     }
 }

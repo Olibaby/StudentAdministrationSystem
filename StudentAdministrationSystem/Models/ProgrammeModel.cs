@@ -12,13 +12,16 @@ namespace StudentAdministrationSystem.Models
         public string ProgrammeTitle { get; set; }
         public string ProgrammeDuration { get; set; }
         public IEnumerable<SelectListItem> Durations { get; set;}
-        public int SelectedDurationsId { get; set;}
+        public string SelectedDurationsId { get; set;}
         public DateTime? CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
+        public ICollection<ModuleModel> Module { get; set; }
+        public ICollection<StudentModel> Student { get; set; }
 
         public ProgrammeModel()
         {
-            
+            Module = new HashSet<ModuleModel>();
+            Student = new HashSet<StudentModel>();
         }
         public ProgrammeModel(Programme programme)
         {
@@ -26,29 +29,19 @@ namespace StudentAdministrationSystem.Models
             ProgrammeId = programme.ProgrammeId;
             ProgrammeTitle = programme.ProgrammeTitle;
             ProgrammeDuration = programme.ProgrammeDuration;
-            CreatedDate = DateTime.Now;
+            CreatedDate = programme.CreatedDate;
+            Module = new HashSet<ModuleModel>();
+            Student = new HashSet<StudentModel>();
         }
 
         public Programme Create(ProgrammeModel programmeModel)
         {
-            string selectedDuration = "";
-            Console.WriteLine("id is " + SelectedDurationsId );
-            foreach (var item in Durations)
-            {
-                Console.WriteLine("id here is " + item.Value );
-                Console.WriteLine("parse id here is " + int.Parse(item.Value));
-                if (SelectedDurationsId == int.Parse(item.Value))
-                {
-                    selectedDuration = item.Text;
-                }
-            }
-            Console.WriteLine("selected is" + selectedDuration );
             return new Programme
             {
-                ProgrammeId = generateProgrammeId(),
+                ProgrammeId = programmeModel.ProgrammeId,
                 ProgrammeTitle = programmeModel.ProgrammeTitle,
-                ProgrammeDuration = selectedDuration,
-                CreatedDate = DateTime.Now
+                ProgrammeDuration = programmeModel.ProgrammeDuration,
+                CreatedDate = programmeModel.CreatedDate
             };
         }
 
@@ -61,12 +54,11 @@ namespace StudentAdministrationSystem.Models
             return programmeEntity;
         }
 
-        private string generateProgrammeId()
+        public string GenerateProgrammeId()
         {
             Random r = new Random();
             int randNum = r.Next(1000000);
             string sixDigitNumber = randNum.ToString("D6");
-            Console.WriteLine("number is" + sixDigitNumber);
             return sixDigitNumber;
         }
     }

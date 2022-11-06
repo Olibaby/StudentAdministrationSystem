@@ -1,20 +1,24 @@
 ﻿<Properties GitUserInfo="UsingGIT" StartupConfiguration="{EB80F0BB-BF0E-416D-BE4C-0B1BF34DAB54}|">
+  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="StudentAdministrationSystem" expanded="True">
-            <Node name="StudentAdministrationSystem" expanded="True" />
+            <Node name="StudentAdministrationSystem" expanded="True">
+              <Node name="Controllers" expanded="True">
+                <Node name="ProgrammeController.cs" selected="True" />
+              </Node>
+            </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.StudentAdministrationSystem PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>

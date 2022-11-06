@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace StudentAdministrationSystem.data.Entities
@@ -16,5 +17,12 @@ namespace StudentAdministrationSystem.data.Entities
         public string ProgrammeDuration { get; set; } 
         public DateTime? CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
+        public ICollection<Module> Modules { get; set; }
+        public ICollection<Student> Students { get; set; }
+        public Programme()
+        {
+            Modules = new HashSet<Module>();
+            Students = new HashSet<Student>();
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace StudentAdministrationSystem
                 //Allow for Data Loss Migrations
                 AutomaticMigrationDataLossAllowed = true
             };
-
+            
             var migrator = new DbMigrator(configuration);
             migrator.Update();
         }

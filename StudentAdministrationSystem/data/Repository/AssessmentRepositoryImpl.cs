@@ -1,6 +1,8 @@
+using StudentAdministrationSystem.data.Repository.Interface;
+
 namespace StudentAdministrationSystem.data.Repository
 {
-    public class AssessmentRepositoryImpl
+    public class AssessmentRepositoryImpl: IAssessmentRepository
     {
         
     }
