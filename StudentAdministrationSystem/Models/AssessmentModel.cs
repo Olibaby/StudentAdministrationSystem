@@ -23,6 +23,7 @@ namespace StudentAdministrationSystem.Models
 
         public AssessmentModel(Assessment assessment)
         {
+            if (assessment == null) return;
             AssessmentId = assessment.AssessmentId;
             AssessmentTitle = assessment.AssessmentTitle;
             AssessmentMaxScore = assessment.AssessmentMaxScore;
@@ -40,7 +41,7 @@ namespace StudentAdministrationSystem.Models
                 AssessmentTitle = assessmentModel.AssessmentTitle,
                 AssessmentMaxScore = assessmentModel.AssessmentMaxScore,
                 ModuleId = assessmentModel.ModuleId,
-                CreatedDate = assessmentModel.CreatedDate
+                CreatedDate = DateTime.Now
             };
         }
 

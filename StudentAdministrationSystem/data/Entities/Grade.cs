@@ -18,8 +18,7 @@ namespace StudentAdministrationSystem.data.Entities
 
         public Grade()
         {
-            Student = new Student();
-            Assessment = new Assessment();
+            
         }
     }
 }

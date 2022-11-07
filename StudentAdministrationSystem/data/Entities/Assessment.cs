@@ -22,7 +22,6 @@ namespace StudentAdministrationSystem.data.Entities
 
         public Assessment()
         {
-            Module = new Module();
             Grade = new HashSet<Grade>();
         }
     }

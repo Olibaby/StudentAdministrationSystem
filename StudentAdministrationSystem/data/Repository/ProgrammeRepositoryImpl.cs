@@ -41,7 +41,6 @@ namespace StudentAdministrationSystem.data.Repository
         public void AddProgramme(Programme programme)
         {
             _context.Set<Programme>().Add(programme);
-            // _context.SaveChanges();
             try
             {
                 _context.SaveChanges();

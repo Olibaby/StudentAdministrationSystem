@@ -1,8 +1,76 @@
-@model StudentAdministrationSystem.Models.StudentModel
+@model IEnumerable<StudentAdministrationSystem.Models.StudentModel>
 
 @{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>title</h2>
+<html lang="">
+   <head>
+      <meta name = "viewport" content = "width = device-width" />
+      <title>Index</title>
+   </head>
+	
+   <body>
+      <p>@Html.ActionLink("Create New", "Create")</p>
+         <table class = "table">
+         <tr>
+            <th>
+               student Id
+            </th>
+				
+            <th>
+               Student Name
+            </th>
+				
+            <th>
+                Student Year
+            </th>
+            
+            <th>
+               Programme
+               </th>
+				
+            <th>
+               Date Created
+            </th>
+            
+            <th>
+               Actions
+            </th>
+         </tr>
+			
+         @foreach (var item in Model) {
+            <tr>
+               <td>
+                  @Html.DisplayFor(modelItem => item.StudentId)
+               </td>
+					
+               <td>
+                  @Html.DisplayFor(modelItem => item.StudentName)
+               </td>
+					
+               <td>
+                  @Html.DisplayFor(modelItem => item.StudentYear)
+               </td>
+               
+               <td>
+                   @Html.DisplayFor(modelItem => item.Programme.ProgrammeTitle)
+                  </td>
+               
+               <td>
+                  @Html.DisplayFor(modelItem => item.CreatedDate)
+                  </td>
+               <td>
+                  @Html.ActionLink("Edit", "", new { id = item.StudentId }) |
+                  @Html.ActionLink("Details", "", new { id = item.StudentId }) |
+                  @Html.ActionLink("Delete", "", new { id = item.StudentId })
+               </td>
+					
+            </tr>
+         }
+			
+      </table>
+   </body>
+</html>
+

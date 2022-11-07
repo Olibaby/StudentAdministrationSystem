@@ -23,7 +23,6 @@ namespace StudentAdministrationSystem.data.Entities
 
         public Student()
         {
-            Programme = new Programme();
             Grade = new HashSet<Grade>();
         }
     }

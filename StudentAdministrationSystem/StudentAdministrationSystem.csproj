@@ -199,7 +199,11 @@
         <Content Include="Scripts\jquery.validate.unobtrusive.js" />
         <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
         <Content Include="Scripts\modernizr-2.8.3.js" />
+        <Content Include="Views\Assessment\Create.cshtml" />
+        <Content Include="Views\Assessment\Edit.cshtml" />
         <Content Include="Views\Assessment\Index.cshtml" />
+        <Content Include="Views\Grade\Create.cshtml" />
+        <Content Include="Views\Grade\Edit.cshtml" />
         <Content Include="Views\Grade\Index.cshtml" />
         <Content Include="Views\Module\Create.cshtml" />
         <Content Include="Views\Module\Edit.cshtml" />
@@ -207,6 +211,8 @@
         <Content Include="Views\Programme\Create.cshtml" />
         <Content Include="Views\Programme\Edit.cshtml" />
         <Content Include="Views\Programme\Index.cshtml" />
+        <Content Include="Views\Student\Create.cshtml" />
+        <Content Include="Views\Student\Edit.cshtml" />
         <Content Include="Views\Student\Index.cshtml" />
         <Content Include="Web.config" />
         <Content Include="Web.Debug.config">

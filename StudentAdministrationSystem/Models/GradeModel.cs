@@ -22,15 +22,17 @@ namespace StudentAdministrationSystem.Models
         
         public GradeModel(Grade grade)
         {
+            if (grade == null) return;
             GradeId = grade.GradeId;
             Mark = grade.Mark;
             StudentId = grade.StudentId;
             Student = new StudentModel();
             AssessmentId = grade.AssessmentId;
             Assessment = new AssessmentModel();
+            CreatedDate = grade.CreatedDate;
         }
 
-        public Grade Create(Grade grade)
+        public Grade Create(GradeModel grade)
         {
             return new Grade
             {
@@ -38,7 +40,7 @@ namespace StudentAdministrationSystem.Models
                 Mark = grade.Mark,
                 StudentId = grade.StudentId,
                 AssessmentId = grade.AssessmentId,
-                CreatedDate = grade.CreatedDate
+                CreatedDate = DateTime.Now
             };
         }
         

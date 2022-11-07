@@ -25,6 +25,7 @@ namespace StudentAdministrationSystem.Models
 
         public ModuleModel(Module module)
         {
+            if (module == null) return;
             ModuleId = module.ModuleId;
             ModuleTitle = module.ModuleTitle;
             ModuleType = module.ModuleType;
@@ -38,11 +39,11 @@ namespace StudentAdministrationSystem.Models
         {
             return new Module
             {
-                ModuleId = moduleModel.ModuleId,
+                ModuleId = GenerateModuleId(),
                 ModuleTitle = moduleModel.ModuleTitle,
                 ModuleType = moduleModel.ModuleType,
                 ProgrammeId = moduleModel.ProgrammeId,
-                CreatedDate = moduleModel.CreatedDate
+                CreatedDate = DateTime.Now
             };
         }
 
@@ -54,6 +55,14 @@ namespace StudentAdministrationSystem.Models
             moduleEntity.ModifiedDate = moduleModel.ModifiedDate;
             moduleEntity.ProgrammeId = moduleModel.ProgrammeId;
             return moduleEntity;
+        }
+        
+        public string GenerateModuleId()
+        {
+            Random r = new Random();
+            int randNum = r.Next(100000);
+            string fiveDigitNumber = randNum.ToString("D5");
+            return fiveDigitNumber;
         }
     }
 }

@@ -1,4 +1,4 @@
-@model StudentAdministrationSystem.Models.ModuleModel
+@model StudentAdministrationSystem.Models.GradeModel
 
 @{
     ViewBag.Title = "Create";
@@ -16,40 +16,39 @@
       @using (Html.BeginForm()){
          @Html.AntiForgeryToken()
          <div class = "form-horizontal">
-            <h4>Module</h4>
+            <h4>Grade</h4>
             <hr />
             @Html.ValidationSummary(
                false, "", new { @class = "text-danger" })
 
             <div class = "form-group">
                <label class="control-label col-md-2">
-                  Module Title
+                  Mark
                </label>
                <div class = "col-md-10">
-                  @Html.TextBoxFor(m => m.ModuleTitle, new { @class = "form-control input-height", placeholder = "Enter Module Title" })
-                  @Html.ValidationMessageFor(model => model.ModuleTitle, "", new{
+                  @Html.TextBoxFor(m => m.Mark, new { @class = "form-control input-height", placeholder = "Enter Mark" })
+                  @Html.ValidationMessageFor(model => model.Mark, "", new{
                      @class = "text-danger" })
                </div>
             </div>
             
             <div class = "form-group">
-               <label class="control-label col-md-2">
-                  Module Type
-               </label>
-               <div class = "col-md-10">
-                  @Html.TextBoxFor(m => m.ModuleType, new { @class = "form-control input-height", placeholder = "Enter Module Type" })
-                  @Html.ValidationMessageFor(model => model.ModuleType, "", new{
-                     @class = "text-danger" })
-               </div>
-            </div>
+                              <label class="control-label col-md-2">
+                                Student
+                              </label>
+                              <div class = "col-md-10">
+                                @Html.DropDownListFor(m=>m.StudentId, (IEnumerable<SelectListItem>)ViewBag.students,"Select one",new { @class = "form-control input-height", placeholder = "Select Student" })
+                                @Html.ValidationMessageFor(model => model.StudentId, "", new{ @class = "text-danger" })
+                              </div>
+                        </div>
             
             <div class = "form-group">
                   <label class="control-label col-md-2">
-                    Program
+                    Module
                   </label>
                   <div class = "col-md-10">
-                    @Html.DropDownListFor(m=>m.ProgrammeId, (IEnumerable<SelectListItem>)ViewBag.programmes,"Select one",new { @class = "form-control input-height", placeholder = "Select Program" })
-                    @Html.ValidationMessageFor(model => model.ProgrammeId, "", new{ @class = "text-danger" })
+                    @Html.DropDownListFor(m=>m.AssessmentId, (IEnumerable<SelectListItem>)ViewBag.modules,"Select one",new { @class = "form-control input-height", placeholder = "Select Assessment" })
+                    @Html.ValidationMessageFor(model => model.AssessmentId, "", new{ @class = "text-danger" })
                   </div>
             </div>
             

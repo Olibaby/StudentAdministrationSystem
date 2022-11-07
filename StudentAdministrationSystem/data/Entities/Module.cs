@@ -25,7 +25,6 @@ namespace StudentAdministrationSystem.data.Entities
         public Module()
         {
             Assessment = new HashSet<Assessment>();
-            Programme = new Programme();
         }
     }
 }

@@ -24,9 +24,7 @@ namespace StudentAdministrationSystem.Service
 
         public ProgrammeModel GetProgramme(string id)
         {
-            // var entity =_programmeRepository.GetProgramme(id);
-            // return new ProgrammeModel(entity);
-            var entity = new Programme();
+            var entity =_programmeRepository.GetProgrammeById(id);
             return new ProgrammeModel(entity);
         }
 
@@ -38,15 +36,14 @@ namespace StudentAdministrationSystem.Service
 
         public void UpdateProgramme(string id, ProgrammeModel model)
         {
-            // var programme = _programmeRepository.GetProgramme(model.ProgrammeId);
-            // var entity = model.Edit(programme, model);
-            // _programmeRepository.UpdateProgramme(model.ProgrammeId,entity);
+            var programme = _programmeRepository.GetProgrammeById(model.ProgrammeId);
+            var entity = model.Edit(programme, model);
+            _programmeRepository.UpdateProgramme(model.ProgrammeId,entity);
         }
 
         public void RemoveProgramme(string id)
         {
-            // var entity = _programmeRepository.GetProgramme(id);
-            // _programmeRepository.RemoveProgramme(entity);
+            _programmeRepository.RemoveProgramme(id);
         }
     }
 }

@@ -11,9 +11,9 @@ namespace StudentAdministrationSystem.Models
         public string StudentYear { get; set; }
         public string ProgrammeId { get; set; }
         public ProgrammeModel Programme { get; set; }
+        public ICollection<GradeModel> Grade { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
-        public ICollection<GradeModel> Grade { get; set; }
 
         public StudentModel()
         {
@@ -23,12 +23,13 @@ namespace StudentAdministrationSystem.Models
 
         public StudentModel(Student student)
         {
+            if (student == null) return;
             StudentId = student.StudentId;
             StudentName = student.StudentName;
             StudentYear = student.StudentYear;
             ProgrammeId = student.ProgrammeId;
-            Programme = new ProgrammeModel();
             CreatedDate = student.CreatedDate;
+            Programme = new ProgrammeModel();
             Grade = new HashSet<GradeModel>();
         }
 
@@ -40,7 +41,7 @@ namespace StudentAdministrationSystem.Models
                StudentName = studentModel.StudentName,
                StudentYear = studentModel.StudentYear,
                ProgrammeId = studentModel.ProgrammeId,
-               CreatedDate = studentModel.CreatedDate
+               CreatedDate = DateTime.Now
             };
         }
 
