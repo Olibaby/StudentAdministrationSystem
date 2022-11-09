@@ -23,7 +23,7 @@
 
             <div class = "form-group">
                <label class="control-label col-md-2">
-                  Student Name
+                  Student Name 
                </label>
                <div class = "col-md-10">
                   @Html.TextBoxFor(m => m.StudentName, new { @class = "form-control input-height", placeholder = "Enter Student Name" })
@@ -44,15 +44,15 @@
             </div>
             
             <div class = "form-group">
-                  <label class="control-label col-md-2">
-                    Program
-                  </label>
-                  <div class = "col-md-10">
-                    @Html.DropDownListFor(m=>m.ProgrammeId, (IEnumerable<SelectListItem>)ViewBag.programmes,"Select one",new { @class = "form-control input-height", placeholder = "Select Program" })
-                    @Html.ValidationMessageFor(model => model.ProgrammeId, "", new{ @class = "text-danger" })
-                  </div>
+               <label class="control-label col-md-2">
+                  Program
+               </label>
+               <div class = "col-md-10">
+                  @Html.DropDownListFor(m=>m.ProgrammeId, (IEnumerable<SelectListItem>)ViewBag.programmes,"Select one",new { @class = "form-control input-height", placeholder = "Select Program" })
+                  @Html.ValidationMessageFor(model => model.ProgrammeId, "", new{ @class = "text-danger" })
+               </div>
             </div>
-            
+
             <div class = "form-group">
                <div class = "col-md-offset-2 col-md-10">
                   <input type = "submit" value = "Save" class = "btn btn-default"/>

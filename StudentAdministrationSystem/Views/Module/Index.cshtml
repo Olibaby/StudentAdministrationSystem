@@ -62,9 +62,9 @@
                   @Html.DisplayFor(modelItem => item.CreatedDate)
                   </td>
                <td>
-                  @Html.ActionLink("Edit", "", new { id = item.ProgrammeId }) |
-                  @Html.ActionLink("Details", "", new { id = item.ProgrammeId }) |
-                  @Html.ActionLink("Delete", "", new { id = item.ProgrammeId })
+                  @Html.ActionLink("Edit", "Edit", new { id = item.ModuleId }) |
+                  @* @Html.ActionLink("Details", "", new { id = item.ModuleId }) | *@
+                  @Html.ActionLink("Delete", "", new { id = item.ModuleId })
                </td>
 					
             </tr>

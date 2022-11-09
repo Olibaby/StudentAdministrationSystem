@@ -162,6 +162,7 @@
         <Compile Include="Models\AssessmentModel.cs" />
         <Compile Include="Models\GradeModel.cs" />
         <Compile Include="Models\ModuleModel.cs" />
+        <Compile Include="Models\ModuleStudentModel.cs" />
         <Compile Include="Models\ProgrammeModel.cs" />
         <Compile Include="Models\StudentModel.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
@@ -214,6 +215,7 @@
         <Content Include="Views\Student\Create.cshtml" />
         <Content Include="Views\Student\Edit.cshtml" />
         <Content Include="Views\Student\Index.cshtml" />
+        <Content Include="Views\Student\SelectModules.cshtml" />
         <Content Include="Web.config" />
         <Content Include="Web.Debug.config">
             <DependentUpon>Web.config</DependentUpon>

@@ -47,5 +47,39 @@ namespace StudentAdministrationSystem.Controllers
             TempData["Message"] = "Grade has been successfully added";
             return RedirectToAction("Index");
         }
+        
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            ViewBag.assessments = new SelectList(_assessmentService.GetAssessments(), "AssessmentId", "AssessmentTitle");
+            ViewBag.students = new SelectList(_studentService.GetStudents(), "StudentId", "StudentName");
+
+            var model = _gradeService.GetGrade(id);
+            if (model == null)
+            {
+                TempData["Message"] = "Grade cannot be found";
+                return View("Index");
+            }
+            return View(model);
+        }
+        
+        [HttpPost]
+        public ActionResult Edit(GradeModel gradeModel)
+        {
+            ViewBag.assessments = new SelectList(_assessmentService.GetAssessments(), "AssessmentId", "AssessmentTitle");
+            ViewBag.students = new SelectList(_studentService.GetStudents(), "StudentId", "StudentName");
+
+            if (ModelState.IsValid)
+            {
+                if (gradeModel == null)
+                {
+                    TempData["Message"] = "Grade is not found";
+                    return View("Index");
+                }
+                _gradeService.UpdateGrade(gradeModel);
+                return RedirectToAction("Index");
+            }
+            return View(gradeModel);
+        }
     }
 }

@@ -21,10 +21,12 @@ namespace StudentAdministrationSystem.data.Entities
         public string ProgrammeId { get; set; }
         public Programme Programme { get; set; }
         public ICollection<Assessment> Assessment { get; set; }
+        public virtual ICollection<Student> Students { get; set; }
         
         public Module()
         {
             Assessment = new HashSet<Assessment>();
+            Students = new HashSet<Student>();
         }
     }
 }

@@ -48,9 +48,9 @@ namespace StudentAdministrationSystem.Service
 
         public void UpdateModule(ModuleModel model)
         {
-            var programme = _moduleRepository.GetModuleById(model.ProgrammeId);
+            var programme = _moduleRepository.GetModuleById(model.ModuleId);
             var entity = model.Edit(programme, model);
-            _moduleRepository.UpdateModule(model.ProgrammeId,entity);
+            _moduleRepository.UpdateModule(model.ModuleId,entity);
         }
 
         public void RemoveModule(string id)

@@ -37,7 +37,7 @@ namespace StudentAdministrationSystem.Models
         {
             return new Student
             {
-               StudentId = studentModel.StudentId,
+               StudentId = GenerateStudentId(studentModel.StudentYear),
                StudentName = studentModel.StudentName,
                StudentYear = studentModel.StudentYear,
                ProgrammeId = studentModel.ProgrammeId,
@@ -55,13 +55,12 @@ namespace StudentAdministrationSystem.Models
             return studentEntity;
         }
         
-        public string GenerateStudentId()
+        public string GenerateStudentId(string studentYear)
         {
-            // Random r = new Random();
-            // int randNum = r.Next(1000000);
-            // string sixDigitNumber = randNum.ToString("D6");
-            // return sixDigitNumber;
-            return "";
+            Random r = new Random();
+            int randNum = r.Next(1000000);
+            string sixDigitNumber = randNum.ToString("D6");
+            return studentYear + sixDigitNumber;
         }
     }
 }

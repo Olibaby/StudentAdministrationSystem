@@ -11,6 +11,7 @@ namespace StudentAdministrationSystem.data.Repository.Interface
         IQueryable<Student> GetStudent(params Expression<Func<Student, object>>[] includeProperties); 
         void AddStudent(Student student);
         void UpdateStudent(Student student);
-        void RemoveStudent(string studentId); 
+        void RemoveStudent(string studentId);
+        void InsertWithData(string moduleId, string studentId);
     }
 }

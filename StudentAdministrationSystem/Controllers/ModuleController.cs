@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using StudentAdministrationSystem.Models;
 using StudentAdministrationSystem.Service.Interface;
@@ -41,6 +44,43 @@ namespace StudentAdministrationSystem.Controllers
             _moduleService.AddModule(moduleModel);
             TempData["Message"] = "Module has been successfully added";
             return RedirectToAction("Index");
+        }
+        
+        [HttpGet]
+        public ActionResult Edit(string id)
+        {
+            ViewBag.programmes = new SelectList(_programmeService.GetProgrammes(), "ProgrammeId", "ProgrammeTitle");
+
+            if (id == null)
+            {
+                TempData["Message"] = "Module does not exist";
+                return View("Index");
+            }
+
+            var model = _moduleService.GetModule(id);
+            if (model == null)
+            {
+                TempData["Message"] = "Programme cannot be found";
+                return View("Index");
+            }
+            return View(model);
+        }
+        
+        [HttpPost]
+        public ActionResult Edit(ModuleModel moduleModel)
+        {
+            if (ModelState.IsValid)
+            {
+                if (moduleModel == null)
+                {
+                    TempData["Message"] = "Programme is not found";
+                    return View("Index");
+                }
+                ViewBag.programmes = new SelectList(_programmeService.GetProgrammes(), "ProgrammeId", "ProgrammeTitle");
+                _moduleService.UpdateModule(moduleModel);
+                return RedirectToAction("Index");
+            }
+            return View(moduleModel);
         }
     }
 }

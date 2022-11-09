@@ -10,5 +10,6 @@ namespace StudentAdministrationSystem.Service.Interface
         void UpdateStudent(StudentModel model);
         void RemoveStudent(string id); 
         StudentModel[] GetStudentByProgramme(string programmeId);
+        void AddModuleToStudent(string moduleId, string studentId);
     }
 }

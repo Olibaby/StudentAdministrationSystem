@@ -1,0 +1,47 @@
+@using Microsoft.Ajax.Utilities
+@model IEnumerable<StudentAdministrationSystem.Models.ModuleModel>
+
+@{
+    ViewBag.Title = "SelectModules";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html lang="">
+   <head>
+      <meta name = "viewport" content = "width = device-width" />
+      <title>Index</title>
+   </head>
+	
+<body>
+
+@using (Html.BeginForm("SelectModules", "Student",
+    new { id = @ViewBag.studentId}, FormMethod.Post, null))
+{
+    <label>Modules</label>
+    <p> @ViewBag.studentId</p>
+    foreach (var modules in Model)
+    {
+        var active = modules.ModuleType == "Compulsory";
+        <table>
+            <tr>
+                <td>
+
+                    @Html.HiddenFor(m => modules.ModuleId)
+                    @Html.HiddenFor(m => modules.ModuleType)
+                    @Html.HiddenFor(m => modules.ProgrammeId)
+                    @Html.DisplayFor(m => modules.ModuleTitle)
+                </td>
+                <td>
+                    @Html.CheckBoxFor(m => active, new { Style = "vertical-align:6px}" })
+                </td>
+            </tr>
+        </table>
+    }
+    <input id="Submit1" type="submit" value="submit"/>
+
+}
+</body>
+</html>
+
+
+

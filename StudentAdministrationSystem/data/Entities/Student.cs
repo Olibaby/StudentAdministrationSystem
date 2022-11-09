@@ -20,10 +20,12 @@ namespace StudentAdministrationSystem.data.Entities
         public DateTime? CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public ICollection<Grade> Grade { get; set; }
+        public virtual ICollection<Module> Modules { get; set; }
 
         public Student()
         {
             Grade = new HashSet<Grade>();
+            Modules = new HashSet<Module>();
         }
     }
 }

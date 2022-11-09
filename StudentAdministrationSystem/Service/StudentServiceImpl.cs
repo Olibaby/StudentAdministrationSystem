@@ -43,7 +43,7 @@ namespace StudentAdministrationSystem.Service
 
         public void UpdateStudent(StudentModel model)
         {
-            var programme = _studentRepository.GetStudentById(model.ProgrammeId);
+            var programme = _studentRepository.GetStudentById(model.StudentId);
             var entity = model.Edit(programme, model);
             _studentRepository.UpdateStudent(entity);
         }
@@ -64,6 +64,11 @@ namespace StudentAdministrationSystem.Service
                 Programme = new ProgrammeModel(s.Programme)
             }).ToArray();
             return models;
+        }
+
+        public void AddModuleToStudent(string moduleId, string studentId)
+        {
+            _studentRepository.InsertWithData(moduleId, studentId);
         }
     }
 }

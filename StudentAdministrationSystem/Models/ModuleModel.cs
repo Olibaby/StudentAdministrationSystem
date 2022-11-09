@@ -9,7 +9,6 @@ namespace StudentAdministrationSystem.Models
         public string ModuleId { get; set; }
         public string ModuleTitle { get; set; }
         public string ModuleType { get; set; }
-        
         public string ProgrammeId { get; set; }
         public ProgrammeModel Programme { get; set; }
         public ICollection<AssessmentModel> Assessment { get; set; }

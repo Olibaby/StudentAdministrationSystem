@@ -47,7 +47,7 @@
                     Module
                   </label>
                   <div class = "col-md-10">
-                    @Html.DropDownListFor(m=>m.AssessmentId, (IEnumerable<SelectListItem>)ViewBag.modules,"Select one",new { @class = "form-control input-height", placeholder = "Select Assessment" })
+                    @Html.DropDownListFor(m=>m.AssessmentId, (IEnumerable<SelectListItem>)ViewBag.assessments,"Select one",new { @class = "form-control input-height", placeholder = "Select Assessment" })
                     @Html.ValidationMessageFor(model => model.AssessmentId, "", new{ @class = "text-danger" })
                   </div>
             </div>
