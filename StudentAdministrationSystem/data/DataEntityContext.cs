@@ -1,6 +1,7 @@
 using System.Data.Common;
 using System.Data.Entity;
 using StudentAdministrationSystem.data.Entities;
+using StudentAdministrationSystem.Models;
 
 namespace StudentAdministrationSystem.data
 {
@@ -10,7 +11,6 @@ namespace StudentAdministrationSystem.data
         {
             // Database.SetInitializer<DataEntityContext>(new CreateDatabaseIfNotExists<DataEntityContext>());
             //Database.SetInitializer<DataEntityContext>(new DropCreateDatabaseIfModelChanges<DataEntityContext>());
-            
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<DataEntityContext, Migrations.Configuration>());
         }
         
@@ -19,5 +19,8 @@ namespace StudentAdministrationSystem.data
         public DbSet<Assessment> Assessments { get; set; } 
         public DbSet<Student> Students { get; set; } 
         public DbSet<Grade> Grades { get; set; } 
+        // public DbSet<ModuleStudent> ModuleStudents { get; set; }
+        public DbSet<StudentModule> StudentModules { get; set; }
+        
     }
 }

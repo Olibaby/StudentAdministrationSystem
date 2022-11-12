@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using StudentAdministrationSystem.data.Entities;
 using StudentAdministrationSystem.Models;
 
 namespace StudentAdministrationSystem.Service.Interface
@@ -10,6 +12,7 @@ namespace StudentAdministrationSystem.Service.Interface
         void UpdateStudent(StudentModel model);
         void RemoveStudent(string id); 
         StudentModel[] GetStudentByProgramme(string programmeId);
-        void AddModuleToStudent(string moduleId, string studentId);
+        void AddModuleToStudent(string moduleId, string studentId, string studentModuleId);
+        IEnumerable<ModuleModel> GetModuleByStudentId(string studentId);
     }
 }

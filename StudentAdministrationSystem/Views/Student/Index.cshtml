@@ -63,9 +63,9 @@
                   </td>
                <td>
                   @Html.ActionLink("Edit", "Edit", new { id = item.StudentId }) |
-                  @Html.ActionLink("Delete", "Delete", "Student",new { id = item.StudentId }, new{ @class = "border" }) |
+                  @Html.ActionLink("Delete", "", "Student",new { id = item.StudentId }, new{ @class = "border" }) |
                   @Html.ActionLink("Select Modules", "SelectModules", new { studentId = item.StudentId }) |
-                  @Html.ActionLink("Add Grade", "Index","Grade" ,new { id = item.StudentId }, new{ @class = "border" }) |
+                  @Html.ActionLink("Add Grade", "ViewModules","Grade" ,new { id = item.StudentId }, new{ @class = "border" }) |
                   @Html.ActionLink("View Result", "", new { id = item.StudentId })
                </td>
 					

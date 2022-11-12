@@ -39,7 +39,7 @@ namespace StudentAdministrationSystem.Controllers
             {
                 TempData["Message"] = "Module is not valid";
                 return RedirectToAction("Index", moduleModel);
-            }
+            } 
            
             _moduleService.AddModule(moduleModel);
             TempData["Message"] = "Module has been successfully added";

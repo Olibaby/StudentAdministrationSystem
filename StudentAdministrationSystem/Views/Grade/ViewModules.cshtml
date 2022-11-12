@@ -1,8 +1,58 @@
-@model TModel
+@model IEnumerable<StudentAdministrationSystem.Models.ModuleModel>
 
 @{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
+    ViewBag.Title = "ViewModules";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>title</h2>
+<html lang="">
+<head>
+    <meta name = "viewport" content = "width = device-width" />
+    <title>Index</title>
+</head>
+	
+<body>
+<h4>Student @ViewBag.studentId</h4>
+<table class = "table">
+    <tr>
+        <th>
+            Module Id
+        </th>
+				
+        <th>
+            Module Title
+        </th>
+				
+        <th>
+            Module Type
+        </th>
+
+        <th>
+            Actions
+        </th>
+    </tr>
+			
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModuleId)
+            </td>
+					
+            <td>
+                @Html.DisplayFor(modelItem => item.ModuleTitle)
+            </td>
+					
+            <td>
+                @Html.DisplayFor(modelItem => item.ModuleType)
+            </td>
+            
+            <td>
+                @Html.ActionLink("Add Grade", "Create", new { moduleId = item.ModuleId, studentId = ViewBag.studentId})
+            </td>
+					
+        </tr>
+    }
+			
+</table>
+</body>
+</html>

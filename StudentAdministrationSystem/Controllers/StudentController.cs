@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
@@ -80,58 +81,62 @@ namespace StudentAdministrationSystem.Controllers
             }
             return View(studentModel);
         }
-       
-        [HttpGet]
-        public ActionResult Delete(string id)
-        {
-            _studentService.AddModuleToStudent("33637", "2021662023");
-            TempData["Message"] = "Module has been successfully added to student";
-            return RedirectToAction("Index");
-        }
-
+        
         [HttpGet]
         public ActionResult SelectModules(string studentId)
-        {
-            //student id
-            var student = _studentService.GetStudent(studentId);
-            var moduleModel = _moduleService.GetModulesByProgramme(student.ProgrammeId);
-            ViewBag.studentId = studentId;
-            return View(moduleModel);
-        }
-        
-        [HttpPost]
-        public ActionResult SelectModules(IEnumerable<ModuleModel> moduleModel, string id)
-        {
-            if (moduleModel.Count() > 6)
+        { 
+            var modCount =_studentService.GetModuleByStudentId(studentId).Count();
+            if (modCount > 0)
             {
-                TempData["Message"] = "Selection is not valid";
-                return View("SelectModules");
-            }
-            //use select list to know selected modules
-            foreach (ModuleModel moduleModels in moduleModel)
-            {
-                _studentService.AddModuleToStudent(moduleModels.ModuleId, id);
-                TempData["Message"] = "Module has been successfully added to student";
+                Console.WriteLine("Modules have been selected");
                 return RedirectToAction("Index");
             }
+            //student id
+            var student = _studentService.GetStudent(studentId);
+            var moduleModelsByProgramme = _moduleService.GetModulesByProgramme(student.ProgrammeId);
+            ViewBag.moduleByPrograms = moduleModelsByProgramme;
+            ViewBag.studentId = studentId;
+            if (_programmeService.GetProgramme(student.ProgrammeId).ProgrammeDuration.Equals("One Year"))
+            {
+                ViewBag.moduleCount = "One Year Programme- Only Six Modules Should be Selected in Total, Compulsory Modules are checked already";
+            }else
+            {
+                ViewBag.moduleCount = "Two Year Programme- Only Twelve Modules Should be Selected in Total, Compulsory Modules are checked already";
+            }
+            return View(moduleModelsByProgramme);
+        }
 
-            return RedirectToAction("Index");
+        [HttpPost]
+        public JsonResult SelectModules(string moduleIds, string studentId)
+        {
+            Console.WriteLine("student id is " + studentId);
+            if (!string.IsNullOrEmpty(moduleIds))
+            {
+                var idss = moduleIds.Split('*').ToList();
+                idss.RemoveAt(0);
+                Console.WriteLine("count is " + idss.Count());
+                if (idss.Count() > 0)
+                {
+                    foreach (var strid in idss)
+                    {
+                        if (!string.IsNullOrEmpty(strid))
+                        {
+                            Random r = new Random();
+                            int randNum = r.Next(10000);
+                            var stMdId = randNum.ToString("D4");
+                            Console.WriteLine("count is " + randNum);
+                            _studentService.AddModuleToStudent(strid, studentId, stMdId);
+                        }
+                    }
+                    return Json(new { status = true, message = "Modules have been successfully added to student", JsonRequestBehavior.AllowGet });
+                    // TempData["Message"] = "Module has been successfully added to student";
+                    // return RedirectToAction("Index");
+                }
+            }
+            return Json(new { status = false, error = "Invalid Id" }, JsonRequestBehavior.AllowGet);
+            // TempData["Message"] = "Invalid Selection";
+            // return View("SelectModules");
         }
         
-        [HttpGet]
-        public ActionResult SelectedModules(string moduleId, string studentId)
-        {
-            if (!ModelState.IsValid)
-            {
-                TempData["Message"] = "Selection is not valid";
-                return View("SelectModules");
-            }
-           //get program by module id
-           //if program.programduration = 1
-           //number of course should not be >6 i.e programduration * 6
-            _studentService.AddModuleToStudent(moduleId, studentId);
-            TempData["Message"] = "Module has been successfully added to student";
-            return RedirectToAction("Index");
-        }
     }
 }

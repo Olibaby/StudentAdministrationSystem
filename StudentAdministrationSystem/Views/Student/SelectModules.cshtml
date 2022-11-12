@@ -1,47 +1,91 @@
 @using Microsoft.Ajax.Utilities
-@model IEnumerable<StudentAdministrationSystem.Models.ModuleModel>
-
+@model IEnumerable<StudentAdministrationSystem.Models.ModuleModel> 
 @{
     ViewBag.Title = "SelectModules";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <html lang="">
-   <head>
-      <meta name = "viewport" content = "width = device-width" />
-      <title>Index</title>
-   </head>
-	
+<head>
+    <meta name = "viewport" content = "width = device-width" />
+    <title>Index</title>
+</head>
+
 <body>
-
-@using (Html.BeginForm("SelectModules", "Student",
-    new { id = @ViewBag.studentId}, FormMethod.Post, null))
+<h4>@ViewBag.moduleCount </h4>
+@foreach (var modules in Model)
 {
-    <label>Modules</label>
-    <p> @ViewBag.studentId</p>
-    foreach (var modules in Model)
+    if (modules.ModuleType == "Compulsory")
     {
-        var active = modules.ModuleType == "Compulsory";
-        <table>
-            <tr>
-                <td>
-
-                    @Html.HiddenFor(m => modules.ModuleId)
-                    @Html.HiddenFor(m => modules.ModuleType)
-                    @Html.HiddenFor(m => modules.ProgrammeId)
-                    @Html.DisplayFor(m => modules.ModuleTitle)
-                </td>
-                <td>
-                    @Html.CheckBoxFor(m => active, new { Style = "vertical-align:6px}" })
-                </td>
-            </tr>
-        </table>
+        modules.isSelected = true;
     }
-    <input id="Submit1" type="submit" value="submit"/>
-
+    <table>
+        <tr>
+            <td>
+                @Html.HiddenFor(m => modules.ModuleId)
+                @Html.HiddenFor(m => modules.ModuleType)
+                @Html.HiddenFor(m => modules.ProgrammeId)
+                @* @Html.HiddenFor(m => modules.StudentId) *@
+                @Html.DisplayFor(m => modules.ModuleTitle)
+            </td>
+            <td>
+                @* <input type="checkbox" class="checkedMe" value="@modules.ModuleId"> *@
+                @Html.CheckBoxFor(m => modules.isSelected, new { Style = "vertical-align:6px}", @class = "checkedMe", value = @modules.ModuleId })
+            </td>
+        </tr>
+    </table>
 }
+@* <input type = "submit" value = "Save" class = "btn btn-default" id="deleteAllSelected"/> *@
+<button class="btn btn-primary btn-fill pull-right" id="deleteAllSelected">
+    Save
+</button>
+@* } *@
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+            $(function () {    
+                //Script for performing multiple select
+                $(document).on('click', '#deleteAllSelected', function (e) {
+                    e.preventDefault();  
+                    var checkIds = "";
+                   $(".checkedMe:checkbox:checked" ).each(function() {                 
+                           console.log(this.value);
+                           //implement picking modules based on program duration                                   
+                               checkIds = checkIds + "*" + this.value;
+                               count++;
+                               console.log(checkIds)
+                    });                    
+                    if (checkIds == "") {
+                        console.log("Please select the modules you want to select")
+                        return;
+                    }
+                    var confirmValue = confirm("Are you sure you want to add the selected item(s)?");
+                    if (confirmValue) {
+                        $("html").addClass("loading");
+                        console.log(checkIds)
+                        $.post("/Student/SelectModules", { "moduleIds": checkIds, "studentId": @ViewBag.studentId }, 
+                        function (data){
+                            if (data.status == true){
+                                console.log(data.message)
+                                window.location = "/Student/Index";
+                                 // $.post("/Student/Index");
+                            } else{
+                                console.log("Oopss!!! something went wrong. Error: ")
+                            }
+                         });
+                    }
+                    else {
+                        $("html").removeClass("loading");
+                        return;
+                    }
+                });
+            }); 
+        </script>
 </body>
 </html>
+
+
 
 
 

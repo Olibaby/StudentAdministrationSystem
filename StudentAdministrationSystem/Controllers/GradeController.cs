@@ -1,5 +1,8 @@
+using System;
 using System.Linq;
 using System.Web.Mvc;
+using StudentAdministrationSystem.data.Entities;
+using StudentAdministrationSystem.data.Repository.Interface;
 using StudentAdministrationSystem.Models;
 using StudentAdministrationSystem.Service;
 using StudentAdministrationSystem.Service.Interface;
@@ -25,27 +28,49 @@ namespace StudentAdministrationSystem.Controllers
         }
         
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult ViewModules(string id)
         {
-            ViewBag.assessments = new SelectList(_assessmentService.GetAssessments(), "AssessmentId", "AssessmentTitle");
-            ViewBag.students = new SelectList(_studentService.GetStudents(), "StudentId", "StudentName");
+            Console.WriteLine("mod are" + _studentService.GetModuleByStudentId(id).Count());
+            var modules = _studentService.GetModuleByStudentId(id);
+            ViewBag.studentId = id;
+            return View(modules);
+        }
+        
+        [HttpGet]
+        public ActionResult Create(string moduleId, string studentId)
+        {
+            ViewBag.assessments = new SelectList(_assessmentService.GetAssessmentsByModule(moduleId), "AssessmentId", "AssessmentTitle");
+            ViewBag.studentId = studentId;
+            ViewBag.moduleId = moduleId;
             return View();
         }
         
         [HttpPost]
         public ActionResult Create(GradeModel gradeModel)
         {
-            ViewBag.assessments = new SelectList(_assessmentService.GetAssessments(), "AssessmentId", "AssessmentTitle");
-            ViewBag.students = new SelectList(_studentService.GetStudents(), "StudentId", "StudentName");
             if (!ModelState.IsValid)
             {
                 TempData["Message"] = "Grade is not valid";
-                return RedirectToAction("Index", gradeModel);
+                return RedirectToAction("ViewModules", gradeModel);
             }
-
-            _gradeService.AddGrade(gradeModel);
-            TempData["Message"] = "Grade has been successfully added";
-            return RedirectToAction("Index");
+            var assessmentExist = _gradeService.GetGrades()
+                .Any(g => g.AssessmentId == gradeModel.AssessmentId && g.StudentId == gradeModel.StudentId);
+            if (assessmentExist)
+            {
+                Console.WriteLine("assessment grade has already been added for this student");
+                return RedirectToAction("ViewModules", new { id = gradeModel.StudentId });
+            }
+            var assessmentMark = _assessmentService.GetAssessment(gradeModel.AssessmentId).AssessmentMaxScore;
+            if (gradeModel.Mark <= decimal.Parse(assessmentMark))
+            {
+                _gradeService.AddGrade(gradeModel);
+                Console.WriteLine("Grade has been successfully added");
+                TempData["Message"] = "Grade has been successfully added";
+                return RedirectToAction("Index");
+            }
+            TempData["Message"] = "student mark is higher than expected mark";
+            Console.WriteLine("student mark is higher than expected mark");
+            return RedirectToAction("ViewModules", new { id = gradeModel.StudentId });
         }
         
         [HttpGet]

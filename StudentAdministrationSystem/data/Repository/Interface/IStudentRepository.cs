@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using StudentAdministrationSystem.data.Entities;
@@ -12,6 +13,10 @@ namespace StudentAdministrationSystem.data.Repository.Interface
         void AddStudent(Student student);
         void UpdateStudent(Student student);
         void RemoveStudent(string studentId);
-        void InsertWithData(string moduleId, string studentId);
+        void InsertStudentWithModule(string moduleId, string studentId, string studentModuleId);
+        IEnumerable<Module> GetModuleByStudentIdStatement(string studentId);
+        // IEnumerable<Module> GetModuleByStudentId(string studentId);
+        // IQueryable GetModuleByStudentIdQuery(string studentId);
+        // IEnumerable<Student> GetAllStudentsWithModule();
     }
 }

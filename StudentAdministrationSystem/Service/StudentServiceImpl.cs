@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using StudentAdministrationSystem.data.Entities;
 using StudentAdministrationSystem.data.Repository.Interface;
 using StudentAdministrationSystem.Models;
 using StudentAdministrationSystem.Service.Interface;
@@ -66,9 +69,20 @@ namespace StudentAdministrationSystem.Service
             return models;
         }
 
-        public void AddModuleToStudent(string moduleId, string studentId)
+        public void AddModuleToStudent(string moduleId, string studentId, string studentModuleId)
         {
-            _studentRepository.InsertWithData(moduleId, studentId);
+            _studentRepository.InsertStudentWithModule(moduleId, studentId, studentModuleId);
+        }
+
+        public IEnumerable<ModuleModel> GetModuleByStudentId(string studentId)
+        {
+            // var entities = _studentRepository.GetModuleByStudentId(studentId);
+            var entities = _studentRepository.GetModuleByStudentIdStatement(studentId);
+            var models = entities.Select(c => new ModuleModel(c)
+            {
+                Programme = new ProgrammeModel(c.Programme)
+            }).ToArray();
+            return models;
         }
     }
 }

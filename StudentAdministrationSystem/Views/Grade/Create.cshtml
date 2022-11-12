@@ -15,54 +15,60 @@
    <body>
       @using (Html.BeginForm()){
          @Html.AntiForgeryToken()
-         <div class = "form-horizontal">
-            <h4>Grade</h4>
-            <hr />
+         <div class="form-horizontal">
+            
+            <h4>Student @ViewBag.studentId</h4>
+            <h4>Module @ViewBag.moduleId</h4>
+            <hr/>
             @Html.ValidationSummary(
                false, "", new { @class = "text-danger" })
 
-            <div class = "form-group">
+            <div class="form-group">
+               <label class="control-label col-md-2">
+                  Assessment
+               </label>
+               <div class="col-md-10">
+                  @Html.DropDownListFor(m => m.AssessmentId, (IEnumerable<SelectListItem>)ViewBag.assessments, "Select one", new { @class = "form-control input-height", placeholder = "Select Assessment" })
+                  @Html.ValidationMessageFor(model => model.AssessmentId, "", new { @class = "text-danger" })
+               </div>
+            </div>
+            
+            @Html.HiddenFor(m => m.StudentId, new{ value = @ViewBag.studentId})
+
+            @* <div class = "form-group"> *@
+            @*    <label class="control-label col-md-2"> *@
+            @*       Module *@
+            @*       </label> *@
+            @*    <div class = "col-md-10"> *@
+            @*       @Html.DropDownListFor(m=>m.StudentId, (IEnumerable<SelectListItem>)ViewBag.modules,"Select one",new { @class = "form-control input-height", placeholder = "Select Module" }) *@
+            @*       @Html.ValidationMessageFor(model => model.StudentId, "", new{ @class = "text-danger" }) *@
+            @*       </div> *@
+            @*    </div> *@
+
+            <div class="form-group">
                <label class="control-label col-md-2">
                   Mark
                </label>
-               <div class = "col-md-10">
+               <div class="col-md-10">
                   @Html.TextBoxFor(m => m.Mark, new { @class = "form-control input-height", placeholder = "Enter Mark" })
-                  @Html.ValidationMessageFor(model => model.Mark, "", new{
-                     @class = "text-danger" })
+                  @Html.ValidationMessageFor(model => model.Mark, "", new
+                  {
+                     @class = "text-danger"
+                  })
                </div>
             </div>
-            
-            <div class = "form-group">
-                              <label class="control-label col-md-2">
-                                Student
-                              </label>
-                              <div class = "col-md-10">
-                                @Html.DropDownListFor(m=>m.StudentId, (IEnumerable<SelectListItem>)ViewBag.students,"Select one",new { @class = "form-control input-height", placeholder = "Select Student" })
-                                @Html.ValidationMessageFor(model => model.StudentId, "", new{ @class = "text-danger" })
-                              </div>
-                        </div>
-            
-            <div class = "form-group">
-                  <label class="control-label col-md-2">
-                    Module
-                  </label>
-                  <div class = "col-md-10">
-                    @Html.DropDownListFor(m=>m.AssessmentId, (IEnumerable<SelectListItem>)ViewBag.assessments,"Select one",new { @class = "form-control input-height", placeholder = "Select Assessment" })
-                    @Html.ValidationMessageFor(model => model.AssessmentId, "", new{ @class = "text-danger" })
-                  </div>
-            </div>
-            
-            <div class = "form-group">
-               <div class = "col-md-offset-2 col-md-10">
-                  <input type = "submit" value = "Save" class = "btn btn-default"/>
+
+            <div class="form-group">
+               <div class="col-md-offset-2 col-md-10">
+                  <input type="submit" value="Save" class="btn btn-default"/>
                </div>
             </div>
-				
+
          </div>
       }
 		
       <div>
-         @Html.ActionLink("Back to List", "Index")
+         @* @Html.ActionLink("Go to Grade List", "Index") *@
       </div>
 		
    </body>
