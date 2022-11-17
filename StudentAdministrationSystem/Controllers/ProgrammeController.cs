@@ -52,12 +52,13 @@ namespace StudentAdministrationSystem.Controllers
                 new SelectListItem { Value="1", Text="One Year" },
                 new SelectListItem { Value ="2", Text="Two Years" }
             };
-            var selectedDuration = vm.Durations.First(x => x.Value == programmeModel.SelectedDurationsId).Text;
+            var selectedDuration = vm.Durations.First(x => x.Value == programmeModel.SelectedDurationsId).Value;
             _programmeService.AddProgramme(new ProgrammeModel
             {
                 ProgrammeId = vm.GenerateProgrammeId(),
-                ProgrammeDuration = selectedDuration,
+                ProgrammeDuration = int.Parse(selectedDuration),
                 ProgrammeTitle = programmeModel.ProgrammeTitle,
+                ProgrammeModuleNo = int.Parse(selectedDuration) * 6,
                 CreatedDate = DateTime.Now
             });
             TempData["Message"] = "Program has been successfully added";
@@ -88,6 +89,7 @@ namespace StudentAdministrationSystem.Controllers
                ProgrammeId = model.ProgrammeId,
                ProgrammeTitle = model.ProgrammeTitle,
                ProgrammeDuration = model.ProgrammeDuration,
+               ProgrammeModuleNo = model.ProgrammeModuleNo,
                Durations = vm.Durations,
                SelectedDurationsId = model.SelectedDurationsId
             };
@@ -109,12 +111,13 @@ namespace StudentAdministrationSystem.Controllers
                     new SelectListItem { Value="1", Text="One Year" },
                     new SelectListItem { Value ="2", Text="Two Years" }
                 };
-                var selectedDuration = vm.Durations.First(x => x.Value == model.SelectedDurationsId).Text;
+                var selectedDuration = vm.Durations.First(x => x.Value == model.SelectedDurationsId).Value;
                 _programmeService.UpdateProgramme(model.ProgrammeId, new ProgrammeModel
                 {
                     ProgrammeId = model.ProgrammeId,
-                    ProgrammeDuration = selectedDuration,
+                    ProgrammeDuration = int.Parse(selectedDuration),
                     ProgrammeTitle = model.ProgrammeTitle,
+                    ProgrammeModuleNo = int.Parse(selectedDuration) * 6,
                     ModifiedDate = DateTime.Now
                 });
                 return RedirectToAction("Index");

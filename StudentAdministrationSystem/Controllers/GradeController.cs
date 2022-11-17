@@ -51,11 +51,17 @@ namespace StudentAdministrationSystem.Controllers
             if (!ModelState.IsValid)
             {
                 TempData["Message"] = "Grade is not valid";
+                Console.WriteLine("Grade is not valid");
                 return RedirectToAction("ViewModules", gradeModel);
             }
-            var assessmentExist = _gradeService.GetGrades()
-                .Any(g => g.AssessmentId == gradeModel.AssessmentId && g.StudentId == gradeModel.StudentId);
-            if (assessmentExist)
+            // var assessmentExist = _gradeService.GetGrades()
+            //     .Any(g => g.AssessmentId == gradeModel.AssessmentId && g.StudentId == gradeModel.StudentId);
+            var assessmentExist = _gradeService.GetGradesByStudentAssessmentModule(gradeModel.StudentId,
+                gradeModel.ModuleId, gradeModel.AssessmentId);
+            Console.WriteLine(gradeModel.AssessmentId);
+            Console.WriteLine(assessmentExist.Count());
+            Console.WriteLine(gradeModel.StudentId);
+            if (assessmentExist.Count() == 1)
             {
                 Console.WriteLine("assessment grade has already been added for this student");
                 return RedirectToAction("ViewModules", new { id = gradeModel.StudentId });
@@ -66,7 +72,7 @@ namespace StudentAdministrationSystem.Controllers
                 _gradeService.AddGrade(gradeModel);
                 Console.WriteLine("Grade has been successfully added");
                 TempData["Message"] = "Grade has been successfully added";
-                return RedirectToAction("Index");
+                return RedirectToAction("ViewModules", new { id = gradeModel.StudentId });
             }
             TempData["Message"] = "student mark is higher than expected mark";
             Console.WriteLine("student mark is higher than expected mark");
@@ -102,7 +108,7 @@ namespace StudentAdministrationSystem.Controllers
                     return View("Index");
                 }
                 _gradeService.UpdateGrade(gradeModel);
-                return RedirectToAction("Index");
+                return RedirectToAction("ViewModules", new { id = gradeModel.StudentId });
             }
             return View(gradeModel);
         }

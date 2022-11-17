@@ -9,8 +9,6 @@ namespace StudentAdministrationSystem.data
     {
         public DataEntityContext() : base("name=StudentAdminDBConnectionString")
         {
-            // Database.SetInitializer<DataEntityContext>(new CreateDatabaseIfNotExists<DataEntityContext>());
-            //Database.SetInitializer<DataEntityContext>(new DropCreateDatabaseIfModelChanges<DataEntityContext>());
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<DataEntityContext, Migrations.Configuration>());
         }
         

@@ -4,7 +4,9 @@ using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using StudentAdministrationSystem.data.Entities;
 using StudentAdministrationSystem.Models;
+using StudentAdministrationSystem.Service;
 using StudentAdministrationSystem.Service.Interface;
 
 namespace StudentAdministrationSystem.Controllers
@@ -14,12 +16,16 @@ namespace StudentAdministrationSystem.Controllers
         private IStudentService _studentService;
         private IProgrammeService _programmeService;
         private IModuleService _moduleService;
+        private IAssessmentService _assessmentService;
+        private IGradeService _gradeService;
         
-        public StudentController(IStudentService studentService, IProgrammeService programmeService, IModuleService moduleService)
+        public StudentController(IStudentService studentService, IProgrammeService programmeService, IModuleService moduleService, IAssessmentService assessmentService, IGradeService gradeService)
         {
             _studentService = studentService;
             _programmeService = programmeService;
             _moduleService = moduleService;
+            _assessmentService = assessmentService;
+            _gradeService = gradeService;
         }
         // GET
         public ActionResult Index()
@@ -96,7 +102,7 @@ namespace StudentAdministrationSystem.Controllers
             var moduleModelsByProgramme = _moduleService.GetModulesByProgramme(student.ProgrammeId);
             ViewBag.moduleByPrograms = moduleModelsByProgramme;
             ViewBag.studentId = studentId;
-            if (_programmeService.GetProgramme(student.ProgrammeId).ProgrammeDuration.Equals("One Year"))
+            if (_programmeService.GetProgramme(student.ProgrammeId).ProgrammeDuration.Equals(1))
             {
                 ViewBag.moduleCount = "One Year Programme- Only Six Modules Should be Selected in Total, Compulsory Modules are checked already";
             }else
@@ -108,7 +114,7 @@ namespace StudentAdministrationSystem.Controllers
 
         [HttpPost]
         public JsonResult SelectModules(string moduleIds, string studentId)
-        {
+        { 
             Console.WriteLine("student id is " + studentId);
             if (!string.IsNullOrEmpty(moduleIds))
             {
@@ -137,6 +143,34 @@ namespace StudentAdministrationSystem.Controllers
             // TempData["Message"] = "Invalid Selection";
             // return View("SelectModules");
         }
-        
+
+        [HttpGet]
+        public ActionResult StudentResult(string studentId, string moduleId)
+        {
+            ViewBag.stuId = studentId;
+            
+            var student = _studentService.GetStudent(studentId);
+            ViewBag.stuYear = student.StudentYear;
+            ViewBag.stuProgram = _programmeService.GetProgramme(student.ProgrammeId).ProgrammeTitle;
+            
+            var grades = _gradeService.GetGradesByStudentModule(studentId, moduleId);
+            ViewBag.grades = grades;
+
+            var moduleMark = grades.Sum(g => g.Mark);
+            ViewBag.totalScore = moduleMark;
+            if (moduleMark >= 50)
+            {
+                ViewBag.moduleResult = "PASS";
+            }
+            else if(moduleMark < 50 && moduleMark >= 45)
+            {
+                ViewBag.moduleResult = "PASS COMPENSATION"; 
+            }
+            else if(moduleMark < 45)
+            {
+                ViewBag.moduleResult = "FAIL";
+            }
+            return View();
+        }
     }
 }

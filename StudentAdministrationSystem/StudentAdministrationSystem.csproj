@@ -160,7 +160,6 @@
             <DependentUpon>Global.asax</DependentUpon>
         </Compile>
         <Compile Include="Migrations\Configuration.cs" />
-        <Compile Include="Migrations\SeedData.cs" />
         <Compile Include="Models\AssessmentModel.cs" />
         <Compile Include="Models\GradeModel.cs" />
         <Compile Include="Models\ModuleModel.cs" />
@@ -219,6 +218,7 @@
         <Content Include="Views\Student\Edit.cshtml" />
         <Content Include="Views\Student\Index.cshtml" />
         <Content Include="Views\Student\SelectModules.cshtml" />
+        <Content Include="Views\Student\StudentResult.cshtml" />
         <Content Include="Web.config" />
         <Content Include="Web.Debug.config">
             <DependentUpon>Web.config</DependentUpon>

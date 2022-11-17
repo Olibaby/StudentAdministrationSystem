@@ -5,12 +5,21 @@ namespace StudentAdministrationSystem.Models
 {
     public class GradeModel
     {
+        // public int GradeId { get; set; }
+        // public decimal Mark { get; set; }
+        // public string StudentId { get; set; }
+        // public StudentModel Student { get; set; }
+        // public int AssessmentId { get; set; }
+        // public AssessmentModel Assessment { get; set; }
+        
         public int GradeId { get; set; }
         public decimal Mark { get; set; }
         public string StudentId { get; set; }
         public StudentModel Student { get; set; }
         public int AssessmentId { get; set; }
         public AssessmentModel Assessment { get; set; }
+        public string ModuleId { get; set; }
+        public ModuleModel Module { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
 
@@ -18,6 +27,7 @@ namespace StudentAdministrationSystem.Models
         {
             Student = new StudentModel();
             Assessment = new AssessmentModel();
+            Module = new ModuleModel();
         }
         
         public GradeModel(Grade grade)
@@ -27,8 +37,8 @@ namespace StudentAdministrationSystem.Models
             Mark = grade.Mark;
             StudentId = grade.StudentId;
             Student = new StudentModel();
-            AssessmentId = grade.AssessmentId;
             Assessment = new AssessmentModel();
+            Module = new ModuleModel();
             CreatedDate = grade.CreatedDate;
         }
 
@@ -40,6 +50,7 @@ namespace StudentAdministrationSystem.Models
                 Mark = grade.Mark,
                 StudentId = grade.StudentId,
                 AssessmentId = grade.AssessmentId,
+                ModuleId = grade.ModuleId,
                 CreatedDate = DateTime.Now
             };
         }
@@ -50,6 +61,7 @@ namespace StudentAdministrationSystem.Models
             gradeEntity.Mark = gradeModel.Mark;
             gradeEntity.StudentId = gradeModel.StudentId;
             gradeEntity.AssessmentId = gradeModel.AssessmentId;
+            gradeEntity.ModuleId = gradeModel.ModuleId;
             gradeEntity.ModifiedDate = gradeModel.ModifiedDate;
             return gradeEntity;
         }

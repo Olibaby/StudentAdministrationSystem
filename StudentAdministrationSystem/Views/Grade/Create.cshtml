@@ -22,6 +22,8 @@
             <hr/>
             @Html.ValidationSummary(
                false, "", new { @class = "text-danger" })
+            
+            
 
             <div class="form-group">
                <label class="control-label col-md-2">
@@ -34,6 +36,7 @@
             </div>
             
             @Html.HiddenFor(m => m.StudentId, new{ value = @ViewBag.studentId})
+            @Html.HiddenFor(m => m.ModuleId, new{ value = @ViewBag.moduleId})
 
             @* <div class = "form-group"> *@
             @*    <label class="control-label col-md-2"> *@

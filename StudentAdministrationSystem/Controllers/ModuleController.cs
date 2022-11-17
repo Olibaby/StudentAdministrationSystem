@@ -39,8 +39,17 @@ namespace StudentAdministrationSystem.Controllers
             {
                 TempData["Message"] = "Module is not valid";
                 return RedirectToAction("Index", moduleModel);
-            } 
-           
+            }
+            var moduleCount = _moduleService.GetModulesByProgramme(moduleModel.ProgrammeId).Length;
+            Console.WriteLine(moduleCount);
+            var programModuleNo = _programmeService.GetProgramme(moduleModel.ProgrammeId).ProgrammeModuleNo;
+            Console.WriteLine(programModuleNo);
+            if (moduleCount >= programModuleNo)
+            {
+                Console.WriteLine("You have reached maximum number of modules for this programme");
+                TempData["Message"] = "You have reached maximum number of modules for this programme";
+                return RedirectToAction("Index");
+            }
             _moduleService.AddModule(moduleModel);
             TempData["Message"] = "Module has been successfully added";
             return RedirectToAction("Index");

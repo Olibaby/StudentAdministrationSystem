@@ -54,9 +54,9 @@
                   @Html.DisplayFor(modelItem => item.StudentYear)
                </td>
                
-               <td>
+               <td> 
                    @Html.DisplayFor(modelItem => item.Programme.ProgrammeTitle)
-                  </td>
+                  </td>  
                
                <td>
                   @Html.DisplayFor(modelItem => item.CreatedDate)
@@ -65,8 +65,8 @@
                   @Html.ActionLink("Edit", "Edit", new { id = item.StudentId }) |
                   @Html.ActionLink("Delete", "", "Student",new { id = item.StudentId }, new{ @class = "border" }) |
                   @Html.ActionLink("Select Modules", "SelectModules", new { studentId = item.StudentId }) |
-                  @Html.ActionLink("Add Grade", "ViewModules","Grade" ,new { id = item.StudentId }, new{ @class = "border" }) |
-                  @Html.ActionLink("View Result", "", new { id = item.StudentId })
+                  @Html.ActionLink("View Modules", "ViewModules","Grade" ,new { id = item.StudentId }, new{ @class = "border" }) |
+                  @Html.ActionLink("View Program Result", "StudentResult", "Student",new { studentId = item.StudentId },new{ @class = "border" })
                </td>
 					
             </tr>

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentAdministrationSystem.data.Entities
 {
@@ -14,7 +15,11 @@ namespace StudentAdministrationSystem.data.Entities
         public string ProgrammeTitle { get; set; }
         
         [Required]
-        public string ProgrammeDuration { get; set; } 
+        [Column("ProgrammeYears")]
+        public int ProgrammeDuration { get; set; } 
+        
+        [Required]
+        public int ProgrammeModuleNo{ get; set; } 
         public DateTime? CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public ICollection<Module> Modules { get; set; }

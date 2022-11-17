@@ -10,7 +10,8 @@ namespace StudentAdministrationSystem.Models
     {
         public string ProgrammeId { get; set; }
         public string ProgrammeTitle { get; set; }
-        public string ProgrammeDuration { get; set; }
+        public int ProgrammeDuration { get; set; }
+        public int ProgrammeModuleNo{ get; set; } 
         public IEnumerable<SelectListItem> Durations { get; set;}
         public string SelectedDurationsId { get; set;}
         public DateTime? CreatedDate { get; set; }
@@ -29,6 +30,7 @@ namespace StudentAdministrationSystem.Models
             ProgrammeId = programme.ProgrammeId;
             ProgrammeTitle = programme.ProgrammeTitle;
             ProgrammeDuration = programme.ProgrammeDuration;
+            ProgrammeModuleNo = programme.ProgrammeModuleNo;
             CreatedDate = programme.CreatedDate;
             Module = new HashSet<ModuleModel>();
             Student = new HashSet<StudentModel>();
@@ -41,6 +43,7 @@ namespace StudentAdministrationSystem.Models
                 ProgrammeId = programmeModel.ProgrammeId,
                 ProgrammeTitle = programmeModel.ProgrammeTitle,
                 ProgrammeDuration = programmeModel.ProgrammeDuration,
+                ProgrammeModuleNo = programmeModel.ProgrammeModuleNo,
                 CreatedDate = programmeModel.CreatedDate
             };
         }
@@ -50,6 +53,7 @@ namespace StudentAdministrationSystem.Models
             programmeEntity.ProgrammeId = programmeModel.ProgrammeId;
             programmeEntity.ProgrammeTitle = programmeModel.ProgrammeTitle;
             programmeEntity.ProgrammeDuration = programmeModel.ProgrammeDuration;
+            programmeEntity.ProgrammeModuleNo = programmeModel.ProgrammeModuleNo;
             programmeEntity.ModifiedDate = programmeModel.ModifiedDate;
             return programmeEntity;
         }

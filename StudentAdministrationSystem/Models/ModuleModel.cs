@@ -13,6 +13,8 @@ namespace StudentAdministrationSystem.Models
         public bool isSelected { get; set; }
         public ProgrammeModel Programme { get; set; }
         public ICollection<AssessmentModel> Assessment { get; set; }
+        public ICollection<GradeModel> Grade { get; set; }
+
         public DateTime? CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
         
@@ -21,6 +23,7 @@ namespace StudentAdministrationSystem.Models
         {
             Programme = new ProgrammeModel();
             Assessment = new HashSet<AssessmentModel>();
+            Grade = new HashSet<GradeModel>();
         }
 
         public ModuleModel(Module module)
@@ -32,6 +35,7 @@ namespace StudentAdministrationSystem.Models
             ProgrammeId = module.ProgrammeId;
             Programme = new ProgrammeModel();
             Assessment = new HashSet<AssessmentModel>();
+            Grade = new HashSet<GradeModel>();
             CreatedDate = module.CreatedDate;
         }
 

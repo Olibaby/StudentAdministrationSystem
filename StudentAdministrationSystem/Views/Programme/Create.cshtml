@@ -37,7 +37,7 @@
                     Program Duration
                   </label>
                   <div class = "col-md-10">
-                    @Html.DropDownListFor(m=>m.SelectedDurationsId, Model.Durations,"Select one",new { @class = "form-control input-height", placeholder = "Enter Program Duration" })
+                    @Html.DropDownListFor(m=>m.SelectedDurationsId, Model.Durations,"Select one",new { @class = "form-control input-height", placeholder = "Enter Program Years" })
                     @Html.ValidationMessageFor(model => model.ProgrammeDuration, "", new{ @class = "text-danger" })
                   </div>
             </div>

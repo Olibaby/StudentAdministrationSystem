@@ -47,7 +47,8 @@
             </td>
             
             <td>
-                @Html.ActionLink("Add Grade", "Create", new { moduleId = item.ModuleId, studentId = ViewBag.studentId})
+                @Html.ActionLink("Add Grade", "Create", new { moduleId = item.ModuleId, studentId = ViewBag.studentId}) |
+                @Html.ActionLink("View Module Result", "StudentResult", "Student",new { studentId = ViewBag.studentId, moduleId =  item.ModuleId},new{ @class = "border" })
             </td>
 					
         </tr>

@@ -50,10 +50,8 @@
                     e.preventDefault();  
                     var checkIds = "";
                    $(".checkedMe:checkbox:checked" ).each(function() {                 
-                           console.log(this.value);
-                           //implement picking modules based on program duration                                   
-                               checkIds = checkIds + "*" + this.value;
-                               count++;
+                           console.log(this.value);                                  
+                               checkIds = checkIds + "*" + this.value;                           
                                console.log(checkIds)
                     });                    
                     if (checkIds == "") {

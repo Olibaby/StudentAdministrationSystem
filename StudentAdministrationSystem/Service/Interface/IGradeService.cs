@@ -11,5 +11,7 @@ namespace StudentAdministrationSystem.Service
         void RemoveGrade(int id); 
         GradeModel[] GetGradesByAssessment(int assessmentId);
         GradeModel[] GetGradesByStudent(string studentId);
+        GradeModel[] GetGradesByStudentAssessmentModule(string studentId, string moduleId, int assessmentId);
+        GradeModel[] GetGradesByStudentModule(string studentId, string moduleId);
     }
 }

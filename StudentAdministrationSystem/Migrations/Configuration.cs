@@ -18,9 +18,7 @@ namespace StudentAdministrationSystem.Migrations
         protected override void Seed(DataEntityContext context)
         {
             base.Seed(context);
-            SeedData.SeedColleges(context); 
+            // SeedData.SeedColleges(context); 
         }
     } 
 }
-
-
