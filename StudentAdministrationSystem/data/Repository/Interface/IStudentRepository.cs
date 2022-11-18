@@ -15,6 +15,7 @@ namespace StudentAdministrationSystem.data.Repository.Interface
         void RemoveStudent(string studentId);
         void InsertStudentWithModule(string moduleId, string studentId, string studentModuleId);
         IEnumerable<Module> GetModuleByStudentIdStatement(string studentId);
+        IEnumerable<Grade> GetStudentModulesScore(string studentId);
         // IEnumerable<Module> GetModuleByStudentId(string studentId);
         // IQueryable GetModuleByStudentIdQuery(string studentId);
         // IEnumerable<Student> GetAllStudentsWithModule();

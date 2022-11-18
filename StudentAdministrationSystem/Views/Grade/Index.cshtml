@@ -12,25 +12,24 @@
    </head>
 	
 <body>
-<p>@Html.ActionLink("Back To Modules", "ViewModules", new { id = Model.First().StudentId })</p>
+@* <p>@Html.ActionLink("Back To Modules", "ViewModules", new { id = Model.First().StudentId })</p> *@
 <table class="table">
    <tr>
+      @* <th> *@
+      @*    Grade Id *@
+      @* </th> *@
       <th>
-         Grade Id
+         Student Name
       </th>
-
       <th>
+         Module Name
+      </th>
+      <th>
+               Assessment Name
+            </th>
+ <th>
          Mark
       </th>
-
-      @* <th> *@
-      @*    Student Name *@
-      @* </th> *@
-
-      <th>
-         Assessment Name
-      </th>
-
       <th>
          Date Created
       </th>
@@ -43,9 +42,12 @@
    @foreach (var item in Model)
    {
       <tr>
-         <td>
-            @Html.DisplayFor(modelItem => item.GradeId)
-         </td>
+         @* <td> *@
+         @*    @Html.DisplayFor(modelItem => item.GradeId) *@
+         @* </td> *@
+          <td>
+                      @Html.DisplayFor(modelItem => item.Student.StudentName)
+                     </td>
           <td>
                      @Html.DisplayFor(modelItem => item.Module.ModuleTitle)
                   </td>
@@ -55,15 +57,12 @@
          <td>
             @Html.DisplayFor(modelItem => item.Mark)
          </td>
-         @* <td> *@
-         @*     @Html.DisplayFor(modelItem => item.Student.StudentName) *@
-         @*    </td> *@
-
+         
          <td>
             @Html.DisplayFor(modelItem => item.CreatedDate)
          </td>
          <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.GradeId }) |
+            @Html.ActionLink("Edit", "Edit", new { id= item.GradeId, grade = item }) |
             @Html.ActionLink("Delete", "", new { id = item.GradeId })
          </td>
 

@@ -217,6 +217,7 @@
         <Content Include="Views\Student\Create.cshtml" />
         <Content Include="Views\Student\Edit.cshtml" />
         <Content Include="Views\Student\Index.cshtml" />
+        <Content Include="Views\Student\ProgramResult.cshtml" />
         <Content Include="Views\Student\SelectModules.cshtml" />
         <Content Include="Views\Student\StudentResult.cshtml" />
         <Content Include="Web.config" />

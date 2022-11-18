@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using StudentAdministrationSystem.data.Entities;
+using StudentAdministrationSystem.data.Repository.Interface;
 using StudentAdministrationSystem.Models;
 using StudentAdministrationSystem.Service;
 using StudentAdministrationSystem.Service.Interface;
@@ -16,15 +17,13 @@ namespace StudentAdministrationSystem.Controllers
         private IStudentService _studentService;
         private IProgrammeService _programmeService;
         private IModuleService _moduleService;
-        private IAssessmentService _assessmentService;
         private IGradeService _gradeService;
         
-        public StudentController(IStudentService studentService, IProgrammeService programmeService, IModuleService moduleService, IAssessmentService assessmentService, IGradeService gradeService)
+        public StudentController(IStudentService studentService, IProgrammeService programmeService, IModuleService moduleService,IGradeService gradeService)
         {
             _studentService = studentService;
             _programmeService = programmeService;
             _moduleService = moduleService;
-            _assessmentService = assessmentService;
             _gradeService = gradeService;
         }
         // GET
@@ -170,6 +169,41 @@ namespace StudentAdministrationSystem.Controllers
             {
                 ViewBag.moduleResult = "FAIL";
             }
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult ProgramResult(string studentId)
+        {
+            ViewBag.stuId = studentId;
+            
+            var student = _studentService.GetStudent(studentId);
+            ViewBag.stuYear = student.StudentYear;
+            ViewBag.stuProgram = _programmeService.GetProgramme(student.ProgrammeId).ProgrammeTitle;
+
+            var sums = _studentService.GetStudentModuleScore(studentId);
+            foreach (var s in sums)
+            {
+                Console.WriteLine("sums are" + s.ModuleId + s.Mark + s.Module.ModuleTitle);
+            }
+            var sumsCount = _studentService.GetStudentModuleScore(studentId).Count();
+            var avg = sums.Sum(s => s.Mark) / sumsCount;
+            ViewBag.avg = avg;
+            Console.WriteLine("avg" + avg);
+            if (avg >= 70)
+            {
+                ViewBag.programmeResult = "DISTINCTION";
+            }
+            else if(avg >= 50 && avg < 70)
+            {
+                ViewBag.programmeResult = "PASS";
+            }
+            else if (avg < 50)
+            {
+                ViewBag.programmeResult = "FAIL";
+            }
+            
+            ViewBag.studentGrades = sums;
             return View();
         }
     }

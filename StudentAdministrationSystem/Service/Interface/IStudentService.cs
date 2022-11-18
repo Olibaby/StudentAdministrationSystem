@@ -14,5 +14,6 @@ namespace StudentAdministrationSystem.Service.Interface
         StudentModel[] GetStudentByProgramme(string programmeId);
         void AddModuleToStudent(string moduleId, string studentId, string studentModuleId);
         IEnumerable<ModuleModel> GetModuleByStudentId(string studentId);
+        IEnumerable<GradeModel> GetStudentModuleScore(string studentId);
     }
 }

@@ -80,11 +80,11 @@ namespace StudentAdministrationSystem.Controllers
         }
         
         [HttpGet]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id, GradeModel gradeModel)
         {
-            ViewBag.assessments = new SelectList(_assessmentService.GetAssessments(), "AssessmentId", "AssessmentTitle");
+            ViewBag.assessments = new SelectList(_assessmentService.GetAssessmentsByModule(gradeModel.ModuleId), "AssessmentId", "Assessment Title");
             ViewBag.students = new SelectList(_studentService.GetStudents(), "StudentId", "StudentName");
-
+            ViewBag.modules = new SelectList(_studentService.GetModuleByStudentId(gradeModel.StudentId), "ModuleId", "ModuleTitle");
             var model = _gradeService.GetGrade(id);
             if (model == null)
             {
@@ -97,18 +97,23 @@ namespace StudentAdministrationSystem.Controllers
         [HttpPost]
         public ActionResult Edit(GradeModel gradeModel)
         {
-            ViewBag.assessments = new SelectList(_assessmentService.GetAssessments(), "AssessmentId", "AssessmentTitle");
+            ViewBag.assessments = new SelectList(_assessmentService.GetAssessmentsByModule(gradeModel.ModuleId), "AssessmentId", "AssessmentTitle");
             ViewBag.students = new SelectList(_studentService.GetStudents(), "StudentId", "StudentName");
+            ViewBag.modules = new SelectList(_studentService.GetModuleByStudentId(gradeModel.StudentId), "ModuleId", "ModuleTitle");
 
             if (ModelState.IsValid)
             {
-                if (gradeModel == null)
+                var assessmentMark = _assessmentService.GetAssessment(gradeModel.AssessmentId).AssessmentMaxScore;
+                if (gradeModel.Mark <= decimal.Parse(assessmentMark))
                 {
-                    TempData["Message"] = "Grade is not found";
-                    return View("Index");
+                    _gradeService.UpdateGrade(gradeModel);
+                    Console.WriteLine("Grade has been successfully updated");
+                    TempData["Message"] = "Grade has been successfully updated";
+                    return RedirectToAction("Index");
                 }
-                _gradeService.UpdateGrade(gradeModel);
-                return RedirectToAction("ViewModules", new { id = gradeModel.StudentId });
+                TempData["Message"] = "student mark is higher than expected mark";
+                Console.WriteLine("student mark is higher than expected mark");
+                return View(gradeModel);
             }
             return View(gradeModel);
         }

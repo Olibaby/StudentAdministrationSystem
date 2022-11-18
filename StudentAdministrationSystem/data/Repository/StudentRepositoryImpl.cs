@@ -107,7 +107,6 @@ namespace StudentAdministrationSystem.data.Repository
         public IEnumerable<Module> GetModuleByStudentIdStatement(string studentId)
         {
             var mods = new List<Module>();
-            
             var leftOuterJoin = from s in _context.Students  
                 join ms in _context.StudentModules on s.StudentId equals ms.StudentId
                 join m in _context.Modules on ms.ModuleId equals m.ModuleId 
@@ -135,6 +134,42 @@ namespace StudentAdministrationSystem.data.Repository
             }
             Console.WriteLine("mod count is " + mods.Count());
             return mods;
+        }
+
+        public IEnumerable<Grade> GetStudentModulesScore(string studentId)
+        {
+            var moduleSums = new List<Grade>();
+            var sumQuery = from g in _context.Grades
+                where g.StudentId == studentId
+                group g by g.ModuleId
+                into m
+                select new
+                {
+                    ModuleSum = m.Sum(c => c.Mark)
+                };
+             //lambda
+            var query = _context.Grades
+                .Where(c=> c.StudentId == studentId)
+                .GroupBy(g => new { ID = g.ModuleId })
+                .Select(m => new
+                {
+                    ModuleSum = m.Sum(s => s.Mark),
+                    ModuleId = m.Key.ID,
+                    ModuleTitle = m.FirstOrDefault(f=>f.ModuleId == m.Key.ID).Module
+                });
+
+            foreach (var sums in query)
+            {
+                var grade = new Grade
+                {
+                    Mark = sums.ModuleSum,
+                    ModuleId = sums.ModuleId,
+                    Module = sums.ModuleTitle
+                };
+                moduleSums.Add(grade);
+            }
+
+            return moduleSums;
         }
 
         // public IEnumerable<Student> GetAllStudentsWithModule()

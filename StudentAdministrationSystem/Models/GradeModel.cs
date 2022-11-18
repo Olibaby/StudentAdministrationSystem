@@ -37,7 +37,9 @@ namespace StudentAdministrationSystem.Models
             Mark = grade.Mark;
             StudentId = grade.StudentId;
             Student = new StudentModel();
+            AssessmentId = grade.AssessmentId;
             Assessment = new AssessmentModel();
+            ModuleId = grade.ModuleId;
             Module = new ModuleModel();
             CreatedDate = grade.CreatedDate;
         }

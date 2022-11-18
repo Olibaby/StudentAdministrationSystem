@@ -1,0 +1,56 @@
+@using StudentAdministrationSystem.Models
+
+@{
+    ViewBag.Title = "StudentResult";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html lang="">
+<head>
+    <meta name = "viewport" content = "width = device-width" />
+    <title>Index</title>
+</head>
+	
+<body>
+<h4> Student Id: @ViewBag.stuId</h4>
+<h4> Student Year: @ViewBag.stuYear</h4>
+<h4> Student Programme: @ViewBag.stuProgram</h4>
+<h4>Modules Average: @ViewBag.avg</h4>
+<h4>Programme Result: @ViewBag.programmeResult</h4>
+
+         <table class = "table">
+         <tr>
+            <th>
+               Module Id
+            </th>
+				
+            <th>
+               Module Name
+            </th>
+				
+            <th>
+                Module Total Mark
+            </th>
+         </tr>
+			
+         @foreach (GradeModel item in @ViewBag.studentGrades) {
+            <tr>
+               <td>
+                  @Html.DisplayFor(modelItem => item.ModuleId)
+               </td>
+					
+               <td>
+                  @Html.DisplayFor(modelItem => item.Module.ModuleTitle)
+               </td>
+					
+               <td>
+                  @Html.DisplayFor(modelItem => item.Mark)
+               </td>
+            </tr>
+         }
+			
+      </table>
+
+</body>
+</html>
+

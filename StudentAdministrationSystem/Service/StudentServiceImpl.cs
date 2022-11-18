@@ -84,5 +84,17 @@ namespace StudentAdministrationSystem.Service
             }).ToArray();
             return models;
         }
+
+        public IEnumerable<GradeModel> GetStudentModuleScore(string studentId)
+        {
+            var entities = _studentRepository.GetStudentModulesScore(studentId);
+            var models = entities.Select(c => new GradeModel(c)
+            {
+                Assessment = new AssessmentModel(c.Assessment),
+                Student = new StudentModel(c.Student),
+                Module = new ModuleModel(c.Module)
+            }).ToArray();
+            return models;
+        }
     }
 }

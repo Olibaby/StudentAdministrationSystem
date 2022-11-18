@@ -22,6 +22,9 @@
                true, "", new { @class = "text-danger" })
 					
             @Html.HiddenFor(model => model.GradeId)
+            @Html.HiddenFor(model => model.ModuleId)
+            @Html.HiddenFor(model => model.AssessmentId)
+            @Html.HiddenFor(model => model.StudentId)
 				
             <div class = "form-group">
                @Html.LabelFor(
@@ -36,35 +39,50 @@
                </div>
             </div>
             
-           <div class = "form-group"> 
-                          @Html.LabelFor(
-                             model => model.StudentId, htmlAttributes: new{
-                                @class = "control-label col-md-2" })
-           							
-                          <div class="col-md-10">
-                             @Html.DropDownListFor(m=>m.StudentId, (IEnumerable<SelectListItem>)ViewBag.students,"Select one",new { @class = "form-control input-height", placeholder = "Select Grade" })
-                             @Html.ValidationMessageFor(
-                                model => model.StudentId, "", new
-                                {
-                                   @class = "text-danger"
-                                })
-                          </div>
-                       </div>
-				
-            <div class = "form-group"> 
-               @Html.LabelFor(
-                  model => model.AssessmentId, htmlAttributes: new{
-                     @class = "control-label col-md-2" })
-							
-               <div class="col-md-10">
-                  @Html.DropDownListFor(m=>m.AssessmentId, (IEnumerable<SelectListItem>)ViewBag.assessments,"Select one",new { @class = "form-control input-height", placeholder = "Select Assessment" })
-                  @Html.ValidationMessageFor(
-                     model => model.AssessmentId, "", new
-                     {
-                        @class = "text-danger"
-                     })
-               </div>
-            </div>
+            @* <div class = "form-group">  *@
+            @*    @Html.LabelFor( *@
+            @*       model => model.Student.StudentName, htmlAttributes: new{ *@
+            @*          @class = "control-label col-md-2" }) *@
+           	@* 						 *@
+            @*    <div class="col-md-10"> *@
+            @*       @Html.DropDownListFor(m=>m.StudentId, (IEnumerable<SelectListItem>)ViewBag.students,"Select one",new { @class = "form-control input-height", placeholder = "Select Grade" }) *@
+            @*       @Html.ValidationMessageFor( *@
+            @*          model => model.StudentId, "", new *@
+            @*          { *@
+            @*             @class = "text-danger" *@
+            @*          }) *@
+            @*    </div> *@
+            @* </div> *@
+            
+            @* <div class = "form-group"> *@
+            @*                @Html.LabelFor( *@
+            @*                   model => model.Module.ModuleTitle, htmlAttributes: new{ *@
+            @*                      @class = "control-label col-md-2" }) *@
+            @*            							 *@
+            @*                <div class="col-md-10"> *@
+            @*                   @Html.DropDownListFor(m=>m.ModuleId, (IEnumerable<SelectListItem>)ViewBag.modules,"Select one",new { @class = "form-control input-height", placeholder = "Select Grade" }) *@
+            @*                   @Html.ValidationMessageFor( *@
+            @*                      model => model.ModuleId, "", new *@
+            @*                      { *@
+            @*                         @class = "text-danger" *@
+            @*                      }) *@
+            @*                </div> *@
+            @*             </div> *@
+				        @* *@
+            @* <div class = "form-group"> *@
+            @*    @Html.LabelFor( *@
+            @*       model => model.Assessment.AssessmentTitle, htmlAttributes: new{ *@
+            @*          @class = "control-label col-md-2" }) *@
+							     @* *@
+            @*    <div class="col-md-10"> *@
+            @*       @Html.DropDownListFor(m=>m.AssessmentId, (IEnumerable<SelectListItem>)ViewBag.assessments,"Select one",new { @class = "form-control input-height", placeholder = "Select Assessment" }) *@
+            @*       @Html.ValidationMessageFor( *@
+            @*          model => model.AssessmentId, "", new *@
+            @*          { *@
+            @*             @class = "text-danger" *@
+            @*          }) *@
+            @*    </div> *@
+            @* </div> *@
             
             <div class = "form-group">
                <div class = "col-md-offset-2 col-md-10">

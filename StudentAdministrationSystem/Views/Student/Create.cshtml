@@ -15,6 +15,7 @@
    <body>
       @using (Html.BeginForm()){
          @Html.AntiForgeryToken()
+         @Html.Raw(TempData["msg"])
          <div class = "form-horizontal">
             <h4>Module</h4>
             <hr />
@@ -65,7 +66,7 @@
       <div>
          @Html.ActionLink("Back to List", "Index")
       </div>
-		
+   
    </body>
 </html>
 
