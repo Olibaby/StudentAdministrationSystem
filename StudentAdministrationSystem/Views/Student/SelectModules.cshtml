@@ -12,48 +12,50 @@
 </head>
 
 <body>
-@* <h4>@ViewBag.moduleCount </h4> *@
-@foreach (var modules in Model)
-{
-    if (modules.ModuleType == "Compulsory")
+    <h4>Compulsory Modules are checked, Do not uncheck them</h4>
+    <h4>Check additional optional modules</h4>
+    @* <h4>@ViewBag.moduleCount </h4> *@
+    @foreach (var modules in Model)
     {
-        modules.isSelected = true;
+        if (modules.ModuleType == "Compulsory")
+        {
+            modules.isSelected = true;
+        }
+        <table>
+            <tr>
+                <td>
+                    @Html.HiddenFor(m => modules.ModuleId)
+                    @Html.HiddenFor(m => modules.ModuleType)
+                    @Html.HiddenFor(m => modules.ProgrammeId)
+                    @* @Html.HiddenFor(m => modules.StudentId) *@
+                    @Html.DisplayFor(m => modules.ModuleTitle)
+                </td>
+                <td>
+                    @* <input type="checkbox" class="checkedMe" value="@modules.ModuleId"> *@
+                    @Html.CheckBoxFor(m => modules.isSelected, new { Style = "vertical-align:6px}", @class = "checkedMe", value = @modules.ModuleId })
+                </td>
+            </tr>
+        </table>
     }
-    <table>
-        <tr>
-            <td>
-                @Html.HiddenFor(m => modules.ModuleId)
-                @Html.HiddenFor(m => modules.ModuleType)
-                @Html.HiddenFor(m => modules.ProgrammeId)
-                @* @Html.HiddenFor(m => modules.StudentId) *@
-                @Html.DisplayFor(m => modules.ModuleTitle)
-            </td>
-            <td>
-                @* <input type="checkbox" class="checkedMe" value="@modules.ModuleId"> *@
-                @Html.CheckBoxFor(m => modules.isSelected, new { Style = "vertical-align:6px}", @class = "checkedMe", value = @modules.ModuleId })
-            </td>
-        </tr>
-    </table>
-}
-@* <input type = "submit" value = "Save" class = "btn btn-default" id="deleteAllSelected"/> *@
-<button class="btn btn-primary btn-fill pull-right" id="deleteAllSelected">
-    Save
-</button>
-@* } *@
+    @* <input type = "submit" value = "Save" class = "btn btn-default" id="deleteAllSelected"/> *@
+    <button class="btn btn-primary btn-fill pull-right" id="deleteAllSelected">
+        Save
+    </button>
+    @* } *@
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script>
-            $(function () {    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+            $(function () {
                 //Script for performing multiple select
                 $(document).on('click', '#deleteAllSelected', function (e) {
-                    e.preventDefault();  
+                    e.preventDefault();
                     var checkIds = "";
-                   $(".checkedMe:checkbox:checked" ).each(function() {                 
-                           console.log(this.value);                                  
-                               checkIds = checkIds + "*" + this.value;                           
+                   $(".checkedMe:checkbox:checked" ).each(function() {
+                           console.log(this.value);
+                               checkIds = checkIds + "*" + this.value;
                                console.log(checkIds)
-                    });                    
+                    });
                     if (checkIds == "") {
                         console.log("Please select the modules you want to select")
                         return;
@@ -62,7 +64,7 @@
                     if (confirmValue) {
                         $("html").addClass("loading");
                         console.log(checkIds)
-                        $.post("/Student/SelectModules", { "moduleIds": checkIds, "studentId": @ViewBag.studentId }, 
+                        $.post("/Student/SelectModules", { "moduleIds": checkIds, "studentId": @ViewBag.studentId },
                         function (data){
                             if (data.status == true){
                                 console.log(data.message)
@@ -78,18 +80,18 @@
                         return;
                     }
                 });
-            }); 
-        </script>
+            });
+    </script>
 
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-      @if (TempData["Message"] != null)
-      {
-         <script type="text/javascript">  
-                  window.onload = function () {  
-                      alert("@TempData["Message"]");  
-                  };  
-              </script>
-      }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    @if (TempData["Message"] != null)
+    {
+        <script type="text/javascript">
+                  window.onload = function () {
+                      alert("@TempData["Message"]");
+                  };
+        </script>
+    }
 
 </body>
 </html>
