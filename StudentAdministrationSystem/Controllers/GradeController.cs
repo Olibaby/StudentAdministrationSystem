@@ -59,8 +59,7 @@ namespace StudentAdministrationSystem.Controllers
                 Console.WriteLine("Grade is not valid");
                 return RedirectToAction("ViewModules", gradeModel);
             }
-            // var assessmentExist = _gradeService.GetGrades()
-            //     .Any(g => g.AssessmentId == gradeModel.AssessmentId && g.StudentId == gradeModel.StudentId);
+            
             var assessmentExist = _gradeService.GetGradesByStudentModuleAssessment(gradeModel.StudentId,
                 gradeModel.ModuleId, gradeModel.AssessmentId);
             if (assessmentExist.Count() == 1)

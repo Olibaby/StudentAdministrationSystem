@@ -95,6 +95,7 @@ namespace StudentAdministrationSystem.Controllers
             if (modCount > 0)
             {
                 Console.WriteLine("Modules have been selected");
+                TempData["Message"] = "Modules have been selected";
                 return RedirectToAction("Index");
             }
             
@@ -145,8 +146,8 @@ namespace StudentAdministrationSystem.Controllers
             var grades = _gradeService.GetGradesByStudentModule(studentId, moduleId);
             if (grades.Count() == 0)
             {
-                TempData["Message"] = "Add Grades for Student Modules";
-                Console.WriteLine("Add Grades for Student Modules");
+                TempData["Message"] = "Add Students Grades for this Module";
+                Console.WriteLine("Add Students Grades for this Module");
                 return RedirectToAction("Index", "Student");
             }
             ViewBag.grades = grades;
@@ -178,10 +179,7 @@ namespace StudentAdministrationSystem.Controllers
             ViewBag.stuProgram = _programmeService.GetProgramme(student.ProgrammeId).ProgrammeTitle;
 
             var sums = _studentService.GetStudentModuleGrade(studentId);
-            // foreach (var s in sums)
-            // {
-            //     Console.WriteLine("sums are" + s.ModuleId + s.Mark + s.Module.ModuleTitle);
-            // }
+            
             var sumsCount = _studentService.GetStudentModuleGrade(studentId).Count();
             if (sumsCount == 0)
             {

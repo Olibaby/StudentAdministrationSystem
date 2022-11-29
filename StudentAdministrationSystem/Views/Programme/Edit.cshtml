@@ -43,7 +43,7 @@
 							
                <div class="col-md-10">
                   @* @Html.DropDownListFor(m => m.SelectedDurationsId, Model.Durations, "Select one", new { @class = "form-control input-height", placeholder = "Enter Program Duration" }) *@
-                  @Html.TextBoxFor(m => m.ProgrammeDuration, new { @class = "form-control input-height", placeholder = "Enter Program Duration (Years)" })
+                  @Html.TextBoxFor(m => m.ProgrammeDuration, new { @type = "number", @class = "form-control input-height", placeholder = "Enter Program Duration (Years)" })
                   @Html.ValidationMessageFor(
                      model => model.SelectedDurationsId, "", new
                      {

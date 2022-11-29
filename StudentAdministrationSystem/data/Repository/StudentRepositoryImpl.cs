@@ -172,62 +172,7 @@ namespace StudentAdministrationSystem.data.Repository
             return moduleSums;
         }
 
-        // public IEnumerable<Student> GetAllStudentsWithModule()
-        // {
-        //     //get all students with their modules
-        //     var students = _context.Students.Include(b => b.Modules).ToList();
-        //     return students;
-        // }
-        
-        // public IQueryable GetModuleByStudentIdQuery(string studentId)
-        // {
-        //     var query = _context.Students.Include(p => p.Modules).Join(_context.ModuleStudents,
-        //         student => student.StudentId,
-        //         moduleStudent => moduleStudent.Student_StudentId,
-        //         (student, moduleStudent) => new { student, moduleStudent }).Join(
-        //         _context.Modules.Include(m => m.Programme),
-        //         combinedEntry => combinedEntry.moduleStudent.Module_ModuleId,
-        //         module => module.ModuleId, (combinedEntry, module) => new
-        //         {
-        //             // smId = combinedEntry.moduleStudent.Student_StudentId,
-        //             // msId = combinedEntry.moduleStudent.Module_ModuleId,
-        //             sId = combinedEntry.student.StudentId,
-        //             Module = module.ModuleTitle
-        //         }).Where(fullEntry => fullEntry.sId == studentId);
-        //     return query;
-        //}
-        
-        // public IEnumerable<Module> GetModuleByStudentId(string studentId)
-        // {
-        //    var query =
-        //        $"Select m.* from students as s " +
-        //        $"left join modulestudents as ms on s.StudentId = ms.Student_StudentId " +
-        //        $"left join modules as m  on m.ModuleId = ms.Module_ModuleId where s.StudentId = '{studentId}'";
-        //    return _context.Database.SqlQuery<IEnumerable<Module>>(query, new SqlParameter("@studentId", studentId)).FirstOrDefault();
-        // }
     }
 }
 
-//  //remove 
-// var student2 = _context.Students
-//     .Include(p => p.Modules)
-//     .First();
-// var moduleToRemove = student2.Modules
-//     .Single(x => x.ModuleId == moduleId);
-// student2.Modules.Remove(moduleToRemove);
-// _context.SaveChanges();
-           
-// //add two existing module to new student
-// var existingTag1 = _context.Modules.Single(m => m.ModuleId == moduleId);
-// var existingTag2 = _context.Modules.Single(m => m.ModuleId == moduleId);
-// var newStudent= new Student()
-// {
-//     StudentName = "Olivia",
-//     //... other property settings left out
-//     //Set your Tags property to an empty collection
-//     Modules = new List<Module>()
-// };
-// newStudent.Modules.Add(existingTag1);
-// newStudent.Modules.Add(existingTag2);
-// _context.Set<Student>().Add(newStudent);
-// _context.SaveChanges();
+

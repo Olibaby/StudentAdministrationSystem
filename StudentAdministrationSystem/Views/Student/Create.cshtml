@@ -17,7 +17,7 @@
          @Html.AntiForgeryToken()
          @Html.Raw(TempData["msg"])
          <div class = "form-horizontal">
-            <h4>Module</h4>
+            <h4>Student</h4>
             <hr />
             @Html.ValidationSummary(
                false, "", new { @class = "text-danger" })
@@ -38,7 +38,7 @@
                   Student Year
                </label>
                <div class = "col-md-10">
-                  @Html.TextBoxFor(m => m.StudentYear, new { @class = "form-control input-height", placeholder = "Enter Stduent Yearr" })
+                  @Html.TextBoxFor(m => m.StudentYear, new { @class = "form-control input-height", placeholder = "Enter Stduent Year" })
                   @Html.ValidationMessageFor(model => model.StudentYear, "", new{
                      @class = "text-danger" })
                </div>
