@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using StudentAdministrationSystem.data.Entities;
 
 namespace StudentAdministrationSystem.Models
@@ -7,8 +8,11 @@ namespace StudentAdministrationSystem.Models
     public class AssessmentModel
     {
         public int AssessmentId { get; set; }
+        [Required]
         public string AssessmentTitle { get; set; }
+        [Required]
         public string AssessmentMaxScore { get; set; }
+        [Required]
         public string ModuleId { get; set; }
         public ModuleModel Module { get; set; }
         public DateTime? CreatedDate { get; set; }

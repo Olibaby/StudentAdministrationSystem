@@ -25,9 +25,9 @@
          Module Name
       </th>
       <th>
-               Assessment Name
-            </th>
- <th>
+         Assessment Name
+      </th>
+      <th>
          Mark
       </th>
       <th>
@@ -45,12 +45,12 @@
          @* <td> *@
          @*    @Html.DisplayFor(modelItem => item.GradeId) *@
          @* </td> *@
-          <td>
-                      @Html.DisplayFor(modelItem => item.Student.StudentName)
-                     </td>
-          <td>
-                     @Html.DisplayFor(modelItem => item.Module.ModuleTitle)
-                  </td>
+         <td>
+            @Html.DisplayFor(modelItem => item.Student.StudentName)
+         </td>
+         <td>
+            @Html.DisplayFor(modelItem => item.Module.ModuleTitle)
+         </td>
          <td>
             @Html.DisplayFor(modelItem => item.Assessment.AssessmentTitle)
          </td>
@@ -63,12 +63,23 @@
          </td>
          <td>
             @Html.ActionLink("Edit", "Edit", new { id= item.GradeId, grade = item }) |
-            @Html.ActionLink("Delete", "", new { id = item.GradeId })
+            @Html.ActionLink("Delete", "Delete", new { id = item.GradeId })
          </td>
 
       </tr>
    }
 
 </table>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      @if (TempData["Message"] != null)
+      {
+         <script type="text/javascript">  
+                  window.onload = function () {  
+                      alert("@TempData["Message"]");  
+                  };  
+              </script>
+      }
+
 </body>
 </html>

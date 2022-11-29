@@ -6,6 +6,7 @@ using System.Text;
 using System.Web.Mvc;
 using StudentAdministrationSystem.data.Entities;
 using StudentAdministrationSystem.data.Repository.Interface;
+using StudentAdministrationSystem.Extensions;
 using StudentAdministrationSystem.Models;
 using StudentAdministrationSystem.Service;
 using StudentAdministrationSystem.Service.Interface;
@@ -49,7 +50,7 @@ namespace StudentAdministrationSystem.Controllers
                 TempData["Message"] = "Student is not valid";
                 return RedirectToAction("Index", studentModel);
             }
-           
+
             _studentService.AddStudent(studentModel);
             TempData["Message"] = "Student has been successfully added";
             return RedirectToAction("Index");
@@ -96,18 +97,11 @@ namespace StudentAdministrationSystem.Controllers
                 Console.WriteLine("Modules have been selected");
                 return RedirectToAction("Index");
             }
-            //student id
+            
             var student = _studentService.GetStudent(studentId);
             var moduleModelsByProgramme = _moduleService.GetModulesByProgramme(student.ProgrammeId);
             ViewBag.moduleByPrograms = moduleModelsByProgramme;
             ViewBag.studentId = studentId;
-            if (_programmeService.GetProgramme(student.ProgrammeId).ProgrammeDuration.Equals(1))
-            {
-                ViewBag.moduleCount = "One Year Programme- Only Six Modules Should be Selected in Total, Compulsory Modules are checked already";
-            }else
-            {
-                ViewBag.moduleCount = "Two Year Programme- Only Twelve Modules Should be Selected in Total, Compulsory Modules are checked already";
-            }
             return View(moduleModelsByProgramme);
         }
 
@@ -134,13 +128,9 @@ namespace StudentAdministrationSystem.Controllers
                         }
                     }
                     return Json(new { status = true, message = "Modules have been successfully added to student", JsonRequestBehavior.AllowGet });
-                    // TempData["Message"] = "Module has been successfully added to student";
-                    // return RedirectToAction("Index");
                 }
             }
             return Json(new { status = false, error = "Invalid Id" }, JsonRequestBehavior.AllowGet);
-            // TempData["Message"] = "Invalid Selection";
-            // return View("SelectModules");
         }
 
         [HttpGet]
@@ -153,21 +143,27 @@ namespace StudentAdministrationSystem.Controllers
             ViewBag.stuProgram = _programmeService.GetProgramme(student.ProgrammeId).ProgrammeTitle;
             
             var grades = _gradeService.GetGradesByStudentModule(studentId, moduleId);
+            if (grades.Count() == 0)
+            {
+                TempData["Message"] = "Add Grades for Student Modules";
+                Console.WriteLine("Add Grades for Student Modules");
+                return RedirectToAction("Index", "Student");
+            }
             ViewBag.grades = grades;
 
             var moduleMark = grades.Sum(g => g.Mark);
             ViewBag.totalScore = moduleMark;
             if (moduleMark >= 50)
             {
-                ViewBag.moduleResult = "PASS";
+                ViewBag.moduleResult = Result.PASS;
             }
             else if(moduleMark < 50 && moduleMark >= 45)
             {
-                ViewBag.moduleResult = "PASS COMPENSATION"; 
+                ViewBag.moduleResult = Result.PASSCOMPENSATION; 
             }
             else if(moduleMark < 45)
             {
-                ViewBag.moduleResult = "FAIL";
+                ViewBag.moduleResult = Result.FAIL;
             }
             return View();
         }
@@ -181,30 +177,44 @@ namespace StudentAdministrationSystem.Controllers
             ViewBag.stuYear = student.StudentYear;
             ViewBag.stuProgram = _programmeService.GetProgramme(student.ProgrammeId).ProgrammeTitle;
 
-            var sums = _studentService.GetStudentModuleScore(studentId);
-            foreach (var s in sums)
+            var sums = _studentService.GetStudentModuleGrade(studentId);
+            // foreach (var s in sums)
+            // {
+            //     Console.WriteLine("sums are" + s.ModuleId + s.Mark + s.Module.ModuleTitle);
+            // }
+            var sumsCount = _studentService.GetStudentModuleGrade(studentId).Count();
+            if (sumsCount == 0)
             {
-                Console.WriteLine("sums are" + s.ModuleId + s.Mark + s.Module.ModuleTitle);
+                TempData["Message"] = "Students Grades does not exist";
+                Console.WriteLine("Students Grades does not exist");
+                return RedirectToAction("Index", "Student");
             }
-            var sumsCount = _studentService.GetStudentModuleScore(studentId).Count();
             var avg = sums.Sum(s => s.Mark) / sumsCount;
             ViewBag.avg = avg;
-            Console.WriteLine("avg" + avg);
             if (avg >= 70)
             {
-                ViewBag.programmeResult = "DISTINCTION";
+                ViewBag.programmeResult = Result.DISTINCTION;
             }
             else if(avg >= 50 && avg < 70)
             {
-                ViewBag.programmeResult = "PASS";
+                ViewBag.programmeResult = Result.PASS;
             }
             else if (avg < 50)
             {
-                ViewBag.programmeResult = "FAIL";
+                ViewBag.programmeResult = Result.FAIL;
             }
             
             ViewBag.studentGrades = sums;
             return View();
+        }
+
+
+        [HttpGet]
+        public ActionResult Delete(string id)
+        {
+            _studentService.RemoveStudent(id);
+            TempData["Message"] = "Student has been successfully deleted";
+            return RedirectToAction("Index");
         }
     }
 }

@@ -86,7 +86,7 @@ namespace StudentAdministrationSystem.Service
             return models;
         }
         
-        public GradeModel[] GetGradesByStudentAssessmentModule(string studentId, string moduleId, int assessmentId)
+        public GradeModel[] GetGradesByStudentModuleAssessment(string studentId, string moduleId, int assessmentId)
         {
             var entities = _gradeRepository
                 .GetGrade(g => g.Assessment, g => g.Student, g=>g.Module)

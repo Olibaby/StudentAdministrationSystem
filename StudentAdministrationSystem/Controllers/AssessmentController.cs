@@ -88,5 +88,13 @@ namespace StudentAdministrationSystem.Controllers
             }
             return View(assessmentModel);
         }
+        
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            _assessmentService.RemoveAssessment(id);
+            TempData["Message"] = "Assessment has been successfully deleted";
+            return RedirectToAction("Index");
+        }
     }
 }

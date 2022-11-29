@@ -17,39 +17,50 @@
 <h4> Student Id: @ViewBag.stuId</h4>
 <h4> Student Year: @ViewBag.stuYear</h4>
 <h4> Student Programme: @ViewBag.stuProgram</h4>
-         <table class="table">
-                  <tr>
-                     <th>
-                        Module
-                     </th>
+<table class="table">
+    <tr>
+        <th>
+            Module
+        </th>
                       
-                     <th>
-                        Assessment
-                     </th>
+        <th>
+            Assessment
+        </th>
                      
-                     <th>
-                        Mark
-                     </th>
-                  </tr>
+        <th>
+            Mark
+        </th>
+    </tr>
 
-     @foreach (GradeModel item in ViewBag.grades)
-     { 
+    @foreach (GradeModel item in ViewBag.grades)
+    { 
          @*     <tr> *@
          @*     <th> @Html.DisplayFor(modelItem => item.Module.ModuleTitle)</th> *@
          @* </tr> *@
-         <tr>
-             <td> @Html.DisplayFor(modelItem => item.Module.ModuleTitle)</td>
-             <td> @Html.DisplayFor(modelItem => item.Assessment.AssessmentTitle)</td>
-             <td> @Html.DisplayFor(modelItem => item.Mark)</td>
-         </tr>
+        <tr>
+            <td> @Html.DisplayFor(modelItem => item.Module.ModuleTitle)</td>
+            <td> @Html.DisplayFor(modelItem => item.Assessment.AssessmentTitle)</td>
+            <td> @Html.DisplayFor(modelItem => item.Mark)</td>
+        </tr>
         
-     }
-      <tr>
-          <th>Total</th> 
-          <th>@ViewBag.moduleResult</th> 
-          <th>@ViewBag.totalScore</th> 
-      </tr>
-                  </table>
+    }
+    <tr>
+        <th>Total</th> 
+        <th>@ViewBag.moduleResult</th> 
+        <th>@ViewBag.totalScore</th> 
+    </tr>
+</table>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      @if (TempData["Message"] != null)
+      {
+         <script type="text/javascript">  
+                  window.onload = function () {  
+                      alert("@TempData["Message"]");  
+                  };  
+              </script>
+      }
+
 
 </body>
 </html>

@@ -85,7 +85,7 @@ namespace StudentAdministrationSystem.Service
             return models;
         }
 
-        public IEnumerable<GradeModel> GetStudentModuleScore(string studentId)
+        public IEnumerable<GradeModel> GetStudentModuleGrade(string studentId)
         {
             var entities = _studentRepository.GetStudentModulesScore(studentId);
             var models = entities.Select(c => new GradeModel(c)

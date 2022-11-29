@@ -13,66 +13,76 @@
 	
    <body>
       <p>@Html.ActionLink("Create New", "Create")</p>
-         <table class = "table">
+   <table class = "table">
+      <tr>
+         <th>
+            Student Id
+         </th>
+				
+         <th>
+            Student Name
+         </th>
+				
+         <th>
+            Student Year
+         </th>
+            
+         <th>
+            Programme
+         </th>
+				
+         <th>
+            Date Created
+         </th>
+            
+         <th>
+            Actions
+         </th>
+      </tr>
+			
+      @foreach (var item in Model) {
          <tr>
-            <th>
-               Student Id
-            </th>
-				
-            <th>
-               Student Name
-            </th>
-				
-            <th>
-                Student Year
-            </th>
-            
-            <th>
-               Programme
-               </th>
-				
-            <th>
-               Date Created
-            </th>
-            
-            <th>
-               Actions
-            </th>
+            <td>
+               @Html.DisplayFor(modelItem => item.StudentId)
+            </td>
+					
+            <td>
+               @Html.DisplayFor(modelItem => item.StudentName)
+            </td>
+					
+            <td>
+               @Html.DisplayFor(modelItem => item.StudentYear)
+            </td>
+               
+            <td> 
+               @Html.DisplayFor(modelItem => item.Programme.ProgrammeTitle)
+            </td>  
+               
+            <td>
+               @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+               @Html.ActionLink("Edit", "Edit", new { id = item.StudentId }) |
+               @Html.ActionLink("Select Modules", "SelectModules", new { studentId = item.StudentId }) |
+               @Html.ActionLink("View Modules", "ViewModules","Grade" ,new { id = item.StudentId }, new{ @class = "border" }) |
+               @Html.ActionLink("View Program Result", "ProgramResult", "Student",new { studentId = item.StudentId },new{ @class = "border" }) |
+                              @Html.ActionLink("Delete", "Delete", "Student",new { id = item.StudentId }, new{ @class = "border" }) 
+            </td>
+					
          </tr>
+      }
 			
-         @foreach (var item in Model) {
-            <tr>
-               <td>
-                  @Html.DisplayFor(modelItem => item.StudentId)
-               </td>
-					
-               <td>
-                  @Html.DisplayFor(modelItem => item.StudentName)
-               </td>
-					
-               <td>
-                  @Html.DisplayFor(modelItem => item.StudentYear)
-               </td>
-               
-               <td> 
-                   @Html.DisplayFor(modelItem => item.Programme.ProgrammeTitle)
-                  </td>  
-               
-               <td>
-                  @Html.DisplayFor(modelItem => item.CreatedDate)
-                  </td>
-               <td>
-                  @Html.ActionLink("Edit", "Edit", new { id = item.StudentId }) |
-                  @Html.ActionLink("Delete", "", "Student",new { id = item.StudentId }, new{ @class = "border" }) |
-                  @Html.ActionLink("Select Modules", "SelectModules", new { studentId = item.StudentId }) |
-                  @Html.ActionLink("View Modules", "ViewModules","Grade" ,new { id = item.StudentId }, new{ @class = "border" }) |
-                  @Html.ActionLink("View Program Result", "ProgramResult", "Student",new { studentId = item.StudentId },new{ @class = "border" })
-               </td>
-					
-            </tr>
+   </table>
+   
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+         @if (TempData["Message"] != null)
+         {
+            <script type="text/javascript">  
+                     window.onload = function () {  
+                         alert("@TempData["Message"]");  
+                     };  
+                 </script>
          }
-			
-      </table>
    </body>
 </html>
 

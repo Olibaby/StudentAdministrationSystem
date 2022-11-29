@@ -13,59 +13,70 @@
 	
    <body>
       <p>@Html.ActionLink("Create New", "Create")</p>
-         <table class = "table">
-         <tr>
-            <th>
-               @* @Html.DisplayNameFor(model => model.ProgrammeId) *@
-               Programme Id
-            </th>
+   <table class = "table">
+      <tr>
+         <th>
+            @* @Html.DisplayNameFor(model => model.ProgrammeId) *@
+            Programme Id
+         </th>
 				
-            <th>
-               @* @Html.DisplayNameFor(model => model.ProgrammeTitle) *@
-               Programme Title
-            </th>
+         <th>
+            @* @Html.DisplayNameFor(model => model.ProgrammeTitle) *@
+            Programme Title
+         </th>
 				
-            <th>
-               @* @Html.DisplayNameFor(model => model.ProgrammeDuration) *@
-               Programme Duration
-            </th>
+         <th>
+            @* @Html.DisplayNameFor(model => model.ProgrammeDuration) *@
+            Programme Duration
+         </th>
 				
-            <th>
-               @* @Html.DisplayNameFor(model => model.CreatedDate) *@
-               Date Created
-            </th>
+         <th>
+            @* @Html.DisplayNameFor(model => model.CreatedDate) *@
+            Date Created
+         </th>
             
-             <th>
-                Actions
-                </th> 
-         </tr>  
+         <th>
+            Actions
+         </th> 
+      </tr>  
 			
-         @foreach (var item in Model) {
-            <tr>
-               <td>
-                  @Html.DisplayFor(modelItem => item.ProgrammeId)
-               </td>
+      @foreach (var item in Model) {
+         <tr>
+            <td>
+               @Html.DisplayFor(modelItem => item.ProgrammeId)
+            </td>
 					
-               <td>
-                  @Html.DisplayFor(modelItem => item.ProgrammeTitle)
-               </td>
+            <td>
+               @Html.DisplayFor(modelItem => item.ProgrammeTitle)
+            </td>
 					
-               <td>
-                  @Html.DisplayFor(modelItem => item.ProgrammeDuration)
-               </td>
+            <td>
+               @Html.DisplayFor(modelItem => item.ProgrammeDuration)
+            </td>
                
-               <td>
-                  @Html.DisplayFor(modelItem => item.CreatedDate)
-                  </td>
-               <td>
-                  @Html.ActionLink("Edit", "Edit", new { id = item.ProgrammeId }) |
-                  @Html.ActionLink("Delete", "", new { id = item.ProgrammeId })
-                  @* @Html.ActionLink("Delete", "Delete", new { id = item.ProgrammeId }) *@
-               </td>
+            <td>
+               @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+               @Html.ActionLink("Edit", "Edit", new { id = item.ProgrammeId }) |
+               @Html.ActionLink("Delete", "Delete", new { id = item.ProgrammeId })
+               @* @Html.ActionLink("Delete", "Delete", new { id = item.ProgrammeId }) *@
+            </td>
 					
-            </tr>
-         }
+         </tr>
+      }
 			
-      </table>
+   </table>
+   
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+         @if (TempData["Message"] != null)
+         {
+            <script type="text/javascript">  
+                     window.onload = function () {  
+                         alert("@TempData["Message"]");  
+                     };  
+                 </script>
+         }
+
    </body>
 </html>

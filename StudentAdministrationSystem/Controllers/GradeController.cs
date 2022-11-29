@@ -30,8 +30,13 @@ namespace StudentAdministrationSystem.Controllers
         [HttpGet]
         public ActionResult ViewModules(string id)
         {
-            Console.WriteLine("mod are" + _studentService.GetModuleByStudentId(id).Count());
             var modules = _studentService.GetModuleByStudentId(id);
+            if (modules.Count() == 0)
+            {
+                TempData["Message"] = "Please Select Modules for Students";
+                Console.WriteLine("Please Select Modules for Students");
+                return RedirectToAction("Index", "Student");
+            }
             ViewBag.studentId = id;
             return View(modules);
         }
@@ -56,11 +61,8 @@ namespace StudentAdministrationSystem.Controllers
             }
             // var assessmentExist = _gradeService.GetGrades()
             //     .Any(g => g.AssessmentId == gradeModel.AssessmentId && g.StudentId == gradeModel.StudentId);
-            var assessmentExist = _gradeService.GetGradesByStudentAssessmentModule(gradeModel.StudentId,
+            var assessmentExist = _gradeService.GetGradesByStudentModuleAssessment(gradeModel.StudentId,
                 gradeModel.ModuleId, gradeModel.AssessmentId);
-            Console.WriteLine(gradeModel.AssessmentId);
-            Console.WriteLine(assessmentExist.Count());
-            Console.WriteLine(gradeModel.StudentId);
             if (assessmentExist.Count() == 1)
             {
                 Console.WriteLine("assessment grade has already been added for this student");
@@ -116,6 +118,14 @@ namespace StudentAdministrationSystem.Controllers
                 return View(gradeModel);
             }
             return View(gradeModel);
+        }
+        
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            _gradeService.RemoveGrade(id);
+            TempData["Message"] = "Grade has been successfully deleted";
+            return RedirectToAction("Index");
         }
     }
 }

@@ -13,64 +13,74 @@
 	
    <body>
       <p>@Html.ActionLink("Create New", "Create")</p>
-         <table class = "table">
+   <table class = "table">
+      <tr>
+         <th>
+            Assessment Id
+         </th>
+				
+         <th>
+            Assessment Title
+         </th>
+				
+         <th>
+            Assessment Max Score
+         </th>
+            
+         <th>
+            Module
+         </th>
+				
+         <th>
+            Date Created
+         </th>
+            
+         <th>
+            Actions
+         </th>
+      </tr>
+			
+      @foreach (var item in Model) {
          <tr>
-            <th>
-               Assessment Id
-            </th>
-				
-            <th>
-               Assessment Title
-            </th>
-				
-            <th>
-               Assessment Max Score
-            </th>
-            
-            <th>
-               Module
-               </th>
-				
-            <th>
-               Date Created
-            </th>
-            
-            <th>
-               Actions
-            </th>
+            <td>
+               @Html.DisplayFor(modelItem => item.AssessmentId)
+            </td>
+					
+            <td>
+               @Html.DisplayFor(modelItem => item.AssessmentTitle)
+            </td>
+					
+            <td>
+               @Html.DisplayFor(modelItem => item.AssessmentMaxScore)
+            </td>
+               
+            <td>
+               @Html.DisplayFor(modelItem => item.Module.ModuleTitle)
+            </td>
+               
+            <td>
+               @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+               @Html.ActionLink("Edit", "Edit", new { id = item.AssessmentId }) |
+               @Html.ActionLink("Delete", "Delete", new { id = item.AssessmentId })
+            </td>
+					
          </tr>
+      }
 			
-         @foreach (var item in Model) {
-            <tr>
-               <td>
-                  @Html.DisplayFor(modelItem => item.AssessmentId)
-               </td>
-					
-               <td>
-                  @Html.DisplayFor(modelItem => item.AssessmentTitle)
-               </td>
-					
-               <td>
-                  @Html.DisplayFor(modelItem => item.AssessmentMaxScore)
-               </td>
-               
-               <td>
-                   @Html.DisplayFor(modelItem => item.Module.ModuleTitle)
-                  </td>
-               
-               <td>
-                  @Html.DisplayFor(modelItem => item.CreatedDate)
-                  </td>
-               <td>
-                  @Html.ActionLink("Edit", "Edit", new { id = item.AssessmentId }) |
-                  @* @Html.ActionLink("Details", "", new { id = item.AssessmentId }) | *@
-                  @Html.ActionLink("Delete", "", new { id = item.AssessmentId })
-               </td>
-					
-            </tr>
+   </table>
+   
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+         @if (TempData["Message"] != null)
+         {
+            <script type="text/javascript">  
+                     window.onload = function () {  
+                         alert("@TempData["Message"]");  
+                     };  
+                 </script>
          }
-			
-      </table>
+
    </body>
 </html>
 

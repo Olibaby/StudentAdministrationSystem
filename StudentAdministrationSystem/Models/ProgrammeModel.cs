@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 using StudentAdministrationSystem.data.Entities;
@@ -9,8 +10,11 @@ namespace StudentAdministrationSystem.Models
     public class ProgrammeModel
     {
         public string ProgrammeId { get; set; }
+        [Required]
         public string ProgrammeTitle { get; set; }
+        [Required]
         public int ProgrammeDuration { get; set; }
+        [Required]
         public int ProgrammeModuleNo{ get; set; } 
         public IEnumerable<SelectListItem> Durations { get; set;}
         public string SelectedDurationsId { get; set;}
@@ -44,7 +48,7 @@ namespace StudentAdministrationSystem.Models
                 ProgrammeTitle = programmeModel.ProgrammeTitle,
                 ProgrammeDuration = programmeModel.ProgrammeDuration,
                 ProgrammeModuleNo = programmeModel.ProgrammeModuleNo,
-                CreatedDate = programmeModel.CreatedDate
+                CreatedDate = DateTime.Now
             };
         }
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using StudentAdministrationSystem.data.Entities;
 
 namespace StudentAdministrationSystem.Models
@@ -7,8 +8,11 @@ namespace StudentAdministrationSystem.Models
     public class StudentModel
     {
         public string StudentId { get; set; }
+        [Required]
         public string StudentName { get; set; }
+        [Required]
         public string StudentYear { get; set; }
+        [Required]
         public string ProgrammeId { get; set; }
         public ProgrammeModel Programme { get; set; }
         public ICollection<GradeModel> Grade { get; set; }

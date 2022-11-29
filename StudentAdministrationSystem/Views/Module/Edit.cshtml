@@ -41,9 +41,11 @@
                               model => model.ModuleType, htmlAttributes: new{
                                  @class = "control-label col-md-2" })
                            <div class = "col-md-10">
-                              @Html.EditorFor(model => model.ModuleType, new{
-                                 htmlAttributes = new {
-                                    @class = "form-control" } })
+                              @* @Html.EditorFor(model => model.ModuleType, new{ *@
+                              @*    htmlAttributes = new { *@
+                              @*       @class = "form-control" } }) *@
+                                                @Html.DropDownListFor(m=>m.SelectedStatesId, Model.States,"Select one",new { @class = "form-control input-height", placeholder = "Enter Module Type" })
+
                               @Html.ValidationMessageFor(model => model.ModuleType, "", new{
                                     @class = "text-danger" })
                            </div>
@@ -77,6 +79,15 @@
          @Html.ActionLink("Back to List", "Index")
       </div>
 		
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      @if (TempData["Message"] != null)
+      {
+         <script type="text/javascript">  
+                  window.onload = function () {  
+                      alert("@TempData["Message"]");  
+                  };  
+              </script>
+      }
    </body>
 </html>
 

@@ -30,12 +30,16 @@ namespace StudentAdministrationSystem.Service
 
         public void AddProgramme(ProgrammeModel model)
         {
+            model.ProgrammeId = model.GenerateProgrammeId();
+            model.ProgrammeModuleNo = model.ProgrammeDuration * 6;
             var entity = model.Create(model);
             _programmeRepository.AddProgramme(entity);
         }
 
-        public void UpdateProgramme(string id, ProgrammeModel model)
+        public void UpdateProgramme(ProgrammeModel model)
         {
+            model.ProgrammeModuleNo = model.ProgrammeDuration * 6;
+            model.ModifiedDate = DateTime.Now;
             var programme = _programmeRepository.GetProgrammeById(model.ProgrammeId);
             var entity = model.Edit(programme, model);
             _programmeRepository.UpdateProgramme(model.ProgrammeId,entity);

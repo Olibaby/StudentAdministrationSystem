@@ -15,8 +15,6 @@ namespace StudentAdministrationSystem.Service
         }
         public ModuleModel[] GetModules()
         {
-            // var entities = _moduleRepository.GetModules();
-            // return entities.Select(m => new ModuleModel(m)).ToArray();
             var entities = _moduleRepository.GetModule(m => m.Programme ).ToList();
             var models = entities.Select(m => new ModuleModel(m)
             {
@@ -27,8 +25,6 @@ namespace StudentAdministrationSystem.Service
 
         public ModuleModel GetModule(string id)
         {
-            // var entity =_moduleRepository.GetModuleById(id);
-            // return new ModuleModel(entity);
             var entities = _moduleRepository
                 .GetModule(m => m.Programme)
                 .Where(m => m.ModuleId == id)

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 using StudentAdministrationSystem.data.Entities;
 
 namespace StudentAdministrationSystem.Models
@@ -7,10 +9,15 @@ namespace StudentAdministrationSystem.Models
     public class ModuleModel
     {
         public string ModuleId { get; set; }
+        [Required]
         public string ModuleTitle { get; set; }
+        // [Required]
         public string ModuleType { get; set; }
+        [Required]
         public string ProgrammeId { get; set; }
         public bool isSelected { get; set; }
+        public IEnumerable<SelectListItem> States { get; set;}
+        public string SelectedStatesId { get; set;}
         public ProgrammeModel Programme { get; set; }
         public ICollection<AssessmentModel> Assessment { get; set; }
         public ICollection<GradeModel> Grade { get; set; }

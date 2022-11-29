@@ -18,9 +18,12 @@
          <div class = "form-horizontal">
             <h4>Programme</h4>
             <hr />
+            @* @if ( TempData["Message"]  != null ) *@
+            @* { *@
+            @*   <p> @TempData["Message"] </p> *@
+            @* } *@ 
             @Html.ValidationSummary(
                false, "", new { @class = "text-danger" })
-
             <div class = "form-group">
                <label class="control-label col-md-2">
                      Program Title
@@ -34,12 +37,13 @@
 				
             <div class = "form-group">
                   <label class="control-label col-md-2">
-                    Program Duration
+                    Program Duration (Years)
                   </label>
-                  <div class = "col-md-10">
-                    @Html.DropDownListFor(m=>m.SelectedDurationsId, Model.Durations,"Select one",new { @class = "form-control input-height", placeholder = "Enter Program Years" })
-                    @Html.ValidationMessageFor(model => model.ProgrammeDuration, "", new{ @class = "text-danger" })
-                  </div>
+               <div class="col-md-10">
+                  @* @Html.DropDownListFor(m=>m.SelectedDurationsId, Model.Durations,"Select one",new { @class = "form-control input-height", placeholder = "Enter Program Years" }) *@
+                  @Html.TextBoxFor(m => m.ProgrammeDuration, new { @type = "number", @class = "form-control input-height", placeholder = "Enter Program Years" })
+                  @Html.ValidationMessageFor(model => model.ProgrammeDuration, "", new { @class = "text-danger" })
+               </div>
             </div>
             
             <div class = "form-group">
@@ -55,5 +59,16 @@
          @Html.ActionLink("Back to List", "Index")
       </div>
 		
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   @if (TempData["Message"] != null)
+   {
+      <script type="text/javascript">  
+               window.onload = function () {  
+                   alert("@TempData["Message"]");  
+               };  
+           </script>
+   }
+   
+   
    </body>
 </html>

@@ -28,7 +28,12 @@ namespace StudentAdministrationSystem.Controllers
         public ActionResult Create()
         {
             ViewBag.programmes = new SelectList(_programmeService.GetProgrammes(), "ProgrammeId", "ProgrammeTitle");
-            return View();
+            var vm= new ModuleModel();
+            vm.States = new List<SelectListItem> {
+                new SelectListItem { Value="1", Text="Compulsory" },
+                new SelectListItem { Value ="2", Text="Optional" }
+            };
+            return View(vm);
         }
         
         [HttpPost]
@@ -38,12 +43,31 @@ namespace StudentAdministrationSystem.Controllers
             if (!ModelState.IsValid)
             {
                 TempData["Message"] = "Module is not valid";
-                return RedirectToAction("Index", moduleModel);
+                // ModelState.AddModelError("name","Module is not valid");
+                // var errors = ModelState.Values.SelectMany(v => v.Errors);
+                // foreach (var e in errors)
+                // {
+                //     Console.WriteLine("error" + e.ErrorMessage);
+                // }
+                return RedirectToAction("Create");
             }
+            var vm= new ModuleModel();
+            vm.States = new List<SelectListItem> {
+                new SelectListItem { Value="1", Text="Compulsory" },
+                new SelectListItem { Value ="2", Text="Optional" }
+            };
+            var selectedDuration = vm.States.First(x => x.Value == moduleModel.SelectedStatesId).Text;
+            moduleModel.ModuleType = selectedDuration;
+            
+            var isExist = _moduleService.GetModules().Any(m => m.ModuleTitle == moduleModel.ModuleTitle);
+            if (isExist)
+            {
+                TempData["Message"] = "Module Already Exist";
+                return RedirectToAction("Create");
+            }
+            
             var moduleCount = _moduleService.GetModulesByProgramme(moduleModel.ProgrammeId).Length;
-            Console.WriteLine(moduleCount);
             var programModuleNo = _programmeService.GetProgramme(moduleModel.ProgrammeId).ProgrammeModuleNo;
-            Console.WriteLine(programModuleNo);
             if (moduleCount >= programModuleNo)
             {
                 Console.WriteLine("You have reached maximum number of modules for this programme");
@@ -67,11 +91,13 @@ namespace StudentAdministrationSystem.Controllers
             }
 
             var model = _moduleService.GetModule(id);
-            if (model == null)
-            {
-                TempData["Message"] = "Programme cannot be found";
-                return View("Index");
-            }
+            ViewBag.programmes = new SelectList(_programmeService.GetProgrammes(), "ProgrammeId", "ProgrammeTitle");
+            
+            model.States = new List<SelectListItem> {
+                new SelectListItem { Value="1", Text="Compulsory" },
+                new SelectListItem { Value ="2", Text="Optional" }
+            };
+            
             return View(model);
         }
         
@@ -86,10 +112,36 @@ namespace StudentAdministrationSystem.Controllers
                     return View("Index");
                 }
                 ViewBag.programmes = new SelectList(_programmeService.GetProgrammes(), "ProgrammeId", "ProgrammeTitle");
+                
+                var vm= new ModuleModel();
+                vm.States = new List<SelectListItem> {
+                    new SelectListItem { Value="1", Text="Compulsory" },
+                    new SelectListItem { Value ="2", Text="Optional" } 
+                };
+                var selectedDuration = vm.States.First(x => x.Value == moduleModel.SelectedStatesId).Text;
+                moduleModel.ModuleType = selectedDuration;
+                
+                var moduleCount = _moduleService.GetModulesByProgramme(moduleModel.ProgrammeId).Length;
+                var programModuleNo = _programmeService.GetProgramme(moduleModel.ProgrammeId).ProgrammeModuleNo;
+                if (moduleCount >= programModuleNo)
+                {
+                    Console.WriteLine("You have reached maximum number of modules for this programme");
+                    TempData["Message"] = "You have reached maximum number of modules for this programme";
+                    return RedirectToAction("Edit", "Module", moduleModel.ModuleId);
+                }
+                
                 _moduleService.UpdateModule(moduleModel);
                 return RedirectToAction("Index");
             }
             return View(moduleModel);
+        }
+        
+        [HttpGet]
+        public ActionResult Delete(string id)
+        {
+            _moduleService.RemoveModule(id);
+            TempData["Message"] = "Module has been successfully deleted";
+            return RedirectToAction("Index");
         }
     }
 }

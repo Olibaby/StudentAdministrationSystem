@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using StudentAdministrationSystem.data.Entities;
 
 namespace StudentAdministrationSystem.Models
@@ -13,11 +14,15 @@ namespace StudentAdministrationSystem.Models
         // public AssessmentModel Assessment { get; set; }
         
         public int GradeId { get; set; }
+        [Required]
         public decimal Mark { get; set; }
+        [Required]
         public string StudentId { get; set; }
         public StudentModel Student { get; set; }
+        [Required]
         public int AssessmentId { get; set; }
         public AssessmentModel Assessment { get; set; }
+        [Required]
         public string ModuleId { get; set; }
         public ModuleModel Module { get; set; }
         public DateTime? CreatedDate { get; set; }

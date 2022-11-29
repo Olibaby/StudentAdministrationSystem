@@ -13,64 +13,75 @@
 	
    <body>
       <p>@Html.ActionLink("Create New", "Create")</p>
-         <table class = "table">
+   <table class = "table">
+      <tr>
+         <th>
+            Module Id
+         </th>
+				
+         <th>
+            Module Title
+         </th>
+				
+         <th>
+            Module Type
+         </th>
+            
+         <th>
+            Programme
+         </th>
+				
+         <th>
+            Date Created
+         </th>
+            
+         <th>
+            Actions
+         </th>
+      </tr>
+			
+      @foreach (var item in Model) {
          <tr>
-            <th>
-               Module Id
-            </th>
-				
-            <th>
-               Module Title
-            </th>
-				
-            <th>
-               Module Type
-            </th>
-            
-            <th>
-               Programme
-               </th>
-				
-            <th>
-               Date Created
-            </th>
-            
-            <th>
-               Actions
-            </th>
+            <td>
+               @Html.DisplayFor(modelItem => item.ModuleId)
+            </td>
+					
+            <td>
+               @Html.DisplayFor(modelItem => item.ModuleTitle)
+            </td>
+					
+            <td>
+               @Html.DisplayFor(modelItem => item.ModuleType)
+            </td>
+               
+            <td>
+               @Html.DisplayFor(modelItem => item.Programme.ProgrammeTitle)
+            </td>
+               
+            <td>
+               @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+               @Html.ActionLink("Edit", "Edit", new { id = item.ModuleId }) |
+               @* @Html.ActionLink("Details", "", new { id = item.ModuleId }) | *@
+               @Html.ActionLink("Delete", "Delete", new { id = item.ModuleId })
+            </td>
+					
          </tr>
+      }
 			
-         @foreach (var item in Model) {
-            <tr>
-               <td>
-                  @Html.DisplayFor(modelItem => item.ModuleId)
-               </td>
-					
-               <td>
-                  @Html.DisplayFor(modelItem => item.ModuleTitle)
-               </td>
-					
-               <td>
-                  @Html.DisplayFor(modelItem => item.ModuleType)
-               </td>
-               
-               <td>
-                   @Html.DisplayFor(modelItem => item.Programme.ProgrammeTitle)
-                  </td>
-               
-               <td>
-                  @Html.DisplayFor(modelItem => item.CreatedDate)
-                  </td>
-               <td>
-                  @Html.ActionLink("Edit", "Edit", new { id = item.ModuleId }) |
-                  @* @Html.ActionLink("Details", "", new { id = item.ModuleId }) | *@
-                  @Html.ActionLink("Delete", "", new { id = item.ModuleId })
-               </td>
-					
-            </tr>
+   </table>
+   
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+         @if (TempData["Message"] != null)
+         {
+            <script type="text/javascript">  
+                     window.onload = function () {  
+                         alert("@TempData["Message"]");  
+                     };  
+                 </script>
          }
-			
-      </table>
+
    </body>
 </html>
 
